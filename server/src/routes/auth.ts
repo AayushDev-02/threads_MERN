@@ -1,7 +1,10 @@
 import express from 'express'
 import {z} from "zod"
-import { User } from '../db/User'
+import  User  from '../db/user'
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+dotenv.config()
+
 const router = express.Router()
 const SECRET = process.env.JWT_SECRET
 
@@ -76,7 +79,7 @@ router.post("/login" , async(req, res) => {
         email = body.data.email
         password = body.data.password
 
-        user = await User.findOne({username, password})
+        user = await User.findOne({email, password})
     }
     
     // const user =  await User.findOne({ $or: [{ username }, { email }] });

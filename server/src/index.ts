@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import cors from 'cors'
 import dotenv from "dotenv"
 import authRouter from './routes/auth'
+import profileRouter from './routes/profile'
 dotenv.config()
 const port = process.env.PORT;
 
@@ -14,6 +15,7 @@ app.use(cors())
 
 
 app.use("/auth", authRouter)
+app.use("/profile", profileRouter)
 
 mongoose.connect(process.env.MONGO_URI || "", {dbName: "threads"})
 
