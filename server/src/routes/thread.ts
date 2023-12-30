@@ -16,26 +16,7 @@ const ThreadProps = z.object({
         url: z.string().url(),
         caption: z.string().max(100)
     })).optional(),
-    //   likes : z.array(z.string()),
-    //   comments : z.array(z.object({
-    //     user: z.string(),
-    //     content: z.string().max(200),
-    //     likes: z.array(z.string())
-    //   })).optional()
 })
-
-const userProfileUpdateProps = z.object({
-    bio: z.string().max(100).optional(),
-    links: z.record(z.string().url()).optional(),
-    avatar: z.string().url().optional(),
-    location: z.object({
-        city: z.string().max(20),
-        state: z.string().max(20),
-        country: z.string().max(20),
-    }).optional(),
-})
-
-
 
 //CREATE THREAD
 router.post("/create", authenticateJwt, async (req, res) => {

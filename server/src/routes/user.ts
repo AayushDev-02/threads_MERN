@@ -14,8 +14,8 @@ router.post("/follow/:userId", authenticateJwt, async (req, res) => {
     const userId = req.params.userId;
     const currentUserId = req.headers["userId"]
 
-    const currentUser = await User.findOneAndUpdate(
-        { _id: currentUserId, following: { $ne: userId } },
+    const currentUser = await Profile.findOneAndUpdate(
+        { userId: currentUserId, following: { $ne: userId } },
         { $push: { following: userId } },
         { new: true }
     );
@@ -24,8 +24,8 @@ router.post("/follow/:userId", authenticateJwt, async (req, res) => {
         return res.status(404).json({ msg: "Current user not found" });
     }
 
-    const userToFollow = await User.findOneAndUpdate(
-        { _id: userId, followers: { $ne: currentUserId } },
+    const userToFollow = await Profile.findOneAndUpdate(
+        { userId: userId, followers: { $ne: currentUserId } },
         { $push: { followers: currentUserId } },
         { new: true }
     );
@@ -45,8 +45,8 @@ router.post("/unfollow/:userId", authenticateJwt, async (req, res) => {
     const currentUserId = req.headers["userId"];
 
     
-    const currentUser = await User.findOneAndUpdate(
-        { _id: currentUserId, following: userId }, 
+    const currentUser = await Profile.findOneAndUpdate(
+        { userId: currentUserId, following: userId }, 
         { $pull: { following: userId } },
         { new: true } 
     );
@@ -55,8 +55,8 @@ router.post("/unfollow/:userId", authenticateJwt, async (req, res) => {
         return res.status(404).json({ msg: "Current user not found or not following the user" });
     }
 
-    const userToUnfollow = await User.findOneAndUpdate(
-        { _id: userId, followers: currentUserId },
+    const userToUnfollow = await Profile.findOneAndUpdate(
+        { userId: userId, followers: currentUserId },
         { $pull: { followers: currentUserId } },
         { new: true } 
     );
@@ -73,7 +73,7 @@ router.get("/followers", authenticateJwt, async (req, res) => {
     try {
         const currentUserId = req.headers["userId"];
 
-        const currentUser = await User.findOne({ _id: currentUserId }).populate("followers", "_id username");
+        const currentUser = await Profile.findOne({ _id: currentUserId }).populate("followers", "_id username");
 
         if (!currentUser) {
             return res.status(404).json({ msg: "Current user not found" });
@@ -91,7 +91,7 @@ router.get("/following", authenticateJwt, async (req, res) => {
     try {
         const currentUserId = req.headers["userId"];
 
-        const currentUser = await User.findOne({ _id: currentUserId }).populate("following", "_id username");
+        const currentUser = await Profile.findOne({ _id: currentUserId }).populate("following", "_id username");
 
         if (!currentUser) {
             return res.status(404).json({ msg: "Current user not found" });
