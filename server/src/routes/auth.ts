@@ -9,13 +9,11 @@ const router = express.Router()
 const SECRET = process.env.JWT_SECRET
 
 const userSignUpProps = z.object({
-    username : z.string().min(5).max(10),
     email : z.string().email(),
     password: z.string().min(7)
 })
 
 const userSignInProps = z.object({
-    username: z.string().min(5).max(10).optional(),
     email : z.string().email().optional(),
     password: z.string().min(7)
 })
@@ -28,18 +26,16 @@ router.post("/signup",  async (req,res) => {
         return res.status(403).json({msg: body.error})
     }
 
-    const username = body.data.username
     const password = body.data.password
     const email = body.data.email
     
-    const user =  await User.findOne({ $or: [{ username }, { email }] });
+    const user =  await User.findOne({email});
 
     if(user) {
         return res.status(403).json({msg: "User already exists"})
     }
 
     const newUserData = {
-        username : username,
         email: email,
         password: password
     }
@@ -68,22 +64,12 @@ router.post("/login" , async(req, res) => {
     if(!body.success){
         return res.status(403).json({msg: body.error})
     }
-    let username , password , email;
-    let user;
-    if(body.data.username) {
-        username = body.data.username
-        password = body.data.password
-
-        user = await User.findOne({username, password})
-        
-    }else {
-        email = body.data.email
-        password = body.data.password
-
-        user = await User.findOne({email, password})
-    }
     
-    // const user =  await User.findOne({ $or: [{ username }, { email }] });
+        const email = body.data.email
+        const password = body.data.password
+
+        const user = await User.findOne({email, password})
+    
 
     if(!user) {
         return res.status(403).json({msg: "User does not exist"})

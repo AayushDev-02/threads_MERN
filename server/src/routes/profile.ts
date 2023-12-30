@@ -10,7 +10,7 @@ const SECRET = process.env.JWT_SECRET
 
 
 const userProfileCreateProps = z.object({
-    username: z.string().max(30),
+    username : z.string().min(5).max(30),
     bio: z.string().max(100),
     links: z.record(z.string().url()),
     avatar: z.string().url(),
@@ -22,7 +22,7 @@ const userProfileCreateProps = z.object({
 })
 
 const userProfileUpdateProps = z.object({
-    username: z.string().max(30).optional(),
+    username : z.string().min(5).max(30).optional(),
     bio: z.string().max(100).optional(),
     links: z.record(z.string().url()).optional(),
     avatar: z.string().url().optional(),
