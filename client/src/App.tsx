@@ -1,16 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import './App.css'
-import { Button } from "@/components/ui/button"
+import SignUp from './components/SignUp';
+import Login from './components/Login';
+import { Toaster } from './components/ui/toaster';
+import Profile from './components/Profile';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className='text-red-500'>Aayush Yadav</div>
-      <Button>Aayush Yadav</Button>
+       <Router>
+          <Routes>
+            {/* <Route path="/" element={<Landing />} /> */}
+            <Route path="/auth/signup" element={<SignUp />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+
+
+            
+          </Routes>
+        </Router>
+        <Toaster />
     </>
   )
 }
