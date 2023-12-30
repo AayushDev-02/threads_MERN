@@ -3,14 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import {
-  Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Button } from "./ui/button";
 import axios from "axios";
 
@@ -19,7 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { toast } = useToast();
-
+  const isLoginDisabled = !email || !password;
   const handleLogin = async () => {
     const data = {
       email,
@@ -65,35 +61,23 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center">
-      <Card>
-        <CardHeader>
-          <CardTitle>Sign In</CardTitle>
-          <CardDescription>Login in to get started</CardDescription>
+    <div className="h-screen flex flex-col items-center justify-center relative">
+      <img className="absolute z-0 bottom-0 rotate-180" src="/bg-2.webp" alt="" />
+      <div className="z-10 w-1/4">
+        <CardHeader className="text-center space-y-2">
+          <CardTitle className="text-xl">Log in using email and passowrd</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              placeholder="Password"
-            />
-          </div>
+
+          <Input className="py-8 px-6 text-base bg-secondary rounded-xl border-0" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+
+          <Input className="py-8 px-6 text-base bg-secondary rounded-xl border-0" onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
+
+          <Button disabled={isLoginDisabled} onClick={() => handleLogin()} type="submit" className="w-full py-8 rounded-xl ">Log In</Button>
         </CardContent>
-        <CardFooter>
-          <Button onClick={() => handleLogin()} type="submit" className="w-full">
-            Sign In
-          </Button>
-        </CardFooter>
-      </Card>
+
+
+      </div>
     </div>
   );
 };

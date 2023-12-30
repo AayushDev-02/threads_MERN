@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'primary-pattern': "url('/bg.jpg')",
+        'primary-pattern': "url('/pattern-1.jpg')",
       },
       colors: {
         border: "hsl(var(--border))",
