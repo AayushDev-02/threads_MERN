@@ -58,7 +58,8 @@ router.post("/signup",  async (req,res) => {
 
     res.status(200).json({
         msg:"User created Successfully",
-        token : token
+        token : token,
+        user: newUser
     })
 })
 
@@ -101,7 +102,8 @@ router.post("/login" , async(req, res) => {
 
     res.status(200).json({
         msg:"Login Successfully",
-        token : token
+        token : token,
+        user: user
     })
 })
 
