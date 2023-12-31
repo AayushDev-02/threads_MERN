@@ -5,7 +5,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import { Toaster } from './components/ui/toaster';
 import Profile from './components/Profile';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 // import { useEffect } from 'react';
 import Landing from './components/Landing';
 import Init from './hooks/Init';

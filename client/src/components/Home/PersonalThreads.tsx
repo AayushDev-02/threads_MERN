@@ -21,12 +21,12 @@ const PersonalThreads: React.FC<PersonalThreadsProps> = ({ personalThreads }) =>
           <div key={index}>
             <div className="flex space-x-4 py-5">
               <Avatar>
-                <AvatarImage src={profile.avatar} />
-                <AvatarFallback>{profile.username.substring(0, 2)}</AvatarFallback>
+                <AvatarImage src={profile?.avatar} />
+                <AvatarFallback>{profile?.username.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <div>{profile.username}</div>
+                  <div>{profile?.username}</div>
                   <h1>{thread.content}</h1>
                 </div>
                 <div className="flex space-x-5">

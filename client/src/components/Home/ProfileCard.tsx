@@ -13,8 +13,8 @@ const ProfileCard = () => {
             <div className="flex space-x-2 items-center justify-start">
                 <UserCircle2 width={25} height={25} />
                 <div>
-                    <h1>{ profile.username}</h1>
-                    <h4 className="text-gray-500">{user.email}</h4>
+                    <h1>{ profile?.username}</h1>
+                    <h4 className="text-gray-500">{user?.email}</h4>
                 </div>
             </div>
         

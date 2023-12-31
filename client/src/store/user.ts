@@ -36,13 +36,19 @@ export interface ThreadsInterface {
   likeCount: number;
 }
 
-export const userState = atom({
+export interface User {
+  _id: string;
+  email:string;
+  password:string;
+}
+
+export const userState = atom<User | null>({
   key: 'userState', // unique ID (with respect to other atoms/selectors)
-  default: {}, // default value (aka initial value)
+  default: null, // default value (aka initial value)
 });
-export const profileState = atom({
+export const profileState = atom<Profile | null>({
   key: 'profileState',
-  default: [],
+  default: null,
 });
 
 export const hasProfileState = atom({

@@ -34,7 +34,7 @@ const Login = () => {
 
       if (res.status === 200) {
         localStorage.setItem("authToken", res.data.token);
-        setUser(data.email);
+        setUser(res.data.user);
         toast({
           title: "Success",
           description: "Login successful. Redirecting to Profile Page",
