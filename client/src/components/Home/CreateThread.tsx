@@ -4,6 +4,8 @@ import { UserCircle2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator"
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
+import { useRecoilValue } from "recoil";
+import { profileState } from "@/store/user";
 
 
 
@@ -13,6 +15,7 @@ const CreateThread: React.FC = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+    const profile = useRecoilValue(profileState)
     
     const handlePost = async () => {
         const data = {
@@ -50,7 +53,7 @@ const CreateThread: React.FC = () => {
                     <div className="w-full space-y-4">
                         <div className="flex items-center space-x-2">
                             <UserCircle2 width={30} height={30} />
-                            <h2 className="w-fit">Aayush Yadav</h2>
+                            <h2 className="w-fit">{profile.username}</h2>
                         </div>
                         <textarea
                             className="border-0 p-0 w-full outline-none bg-inherit resize-none text-slate-300 px-5"

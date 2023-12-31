@@ -38,11 +38,11 @@ export interface ThreadsInterface {
 
 export const userState = atom({
   key: 'userState', // unique ID (with respect to other atoms/selectors)
-  default: "", // default value (aka initial value)
+  default: {}, // default value (aka initial value)
 });
 export const profileState = atom({
   key: 'profileState',
-  default: null,
+  default: [],
 });
 
 export const hasProfileState = atom({

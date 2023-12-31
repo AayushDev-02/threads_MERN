@@ -15,7 +15,6 @@ const Init = () => {
             Authorization : `Bearer ${localStorage.getItem("authToken")}`
           }
         })
-
         setUser(res.data.data)
 
         const res2 = await axios.get("http://localhost:3000/profile", {
