@@ -13,18 +13,19 @@ const CreateThread: React.FC = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+    
     const handlePost = async () => {
         const data = {
             content: content,
             images: []
         }
         try {
-            const res = await axios.post("http://localhost:3000/thread/create", data, {
+             await axios.post("http://localhost:3000/thread/create", data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`
                 }
             })
-            console.log(res)
+            // console.log(res)
             toast({
                 title: "Success",
                 description: "Thread Created Successfully",
@@ -43,7 +44,7 @@ const CreateThread: React.FC = () => {
     }
 
     return (
-        <>
+        <div>
             <div className="w-full flex items-center justify-between p-5 space-x-4">
                 <div className="flex space-y-2 w-full items-center ">
                     <div className="w-full space-y-4">
@@ -65,7 +66,7 @@ const CreateThread: React.FC = () => {
             </div>
             <Separator />
 
-        </>
+        </div>
     );
 };
 

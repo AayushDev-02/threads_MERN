@@ -18,7 +18,7 @@ const ProfileList: React.FC = () => {
                     }
                 });
 
-                console.log(res.data);
+                // console.log(res.data);
                 setProfileList(res.data.profiles);
             } catch (error) {
                 console.error("Error fetching profiles:", error);
@@ -30,6 +30,7 @@ const ProfileList: React.FC = () => {
 
     return (
         <div className='space-y-4 p-5'>
+            <div className='text-gray-500 font-bold'>Suggested For You</div>
             {profileList.map((element, index) => (
                 <div className='flex items-center justify-between' key={index}>
                     <div className='flex items-center space-x-4'>
@@ -40,7 +41,7 @@ const ProfileList: React.FC = () => {
 
                         <div className='space-y-1'>
                             <h1 className='font-semibold'>{element.username}</h1>
-                            <p className='text-gray-500'>{element.bio.substring(0, 20) + "......."}</p>
+                            <p className='text-gray-500 text-sm'>{element.bio.substring(0, 20) + "......."}</p>
                         </div>
                     </div>
 
