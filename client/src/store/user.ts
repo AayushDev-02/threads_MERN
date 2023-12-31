@@ -3,16 +3,16 @@ import { atom } from "recoil";
 export interface Profile {
   userId: string;
   username: string;
-  bio?: string;
-  links?: Map<string, string>;
-  avatar?: string;
-  location?: {
-    city?: string;
-    state?: string;
-    country?: string;
+  bio: string;
+  links: Map<string, string>;
+  avatar: string;
+  location: {
+    city: string;
+    state: string;
+    country: string;
   };
-  followers?: string[];
-  following?: string[];
+  followers: string[];
+  following: string[];
 }
 
 export const userState = atom({

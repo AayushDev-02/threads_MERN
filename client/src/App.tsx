@@ -10,7 +10,7 @@ import Navbar from './components/Navbar';
 import Landing from './components/Landing';
 import Init from './hooks/Init';
 import MainLayout from './layouts/Layout2';
-import { Home } from 'lucide-react';
+import Home from './components/Home/Home';
 function App() {
   // const navigate = useNavigate()
   return (

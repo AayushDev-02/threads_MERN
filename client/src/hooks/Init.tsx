@@ -28,7 +28,9 @@ const Init = () => {
       }
     }
     getUserAndProfile()
-  }, [localStorage.getItem("authToken")])  
+  }, [localStorage.getItem("authToken")]) 
+  
+
 
   return (
     <></>
