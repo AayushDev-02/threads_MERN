@@ -15,9 +15,9 @@ const Landing = () => {
     return (
         <div
             className=' h-full pt-20 flex items-center justify-center overflow-hidden relative shadow-inner-[20px] '>
-            <img className="absolute blur left-0 saturate-200" src="/img-1.png" alt="" />
-            <img className="absolute blur right-0 top-20 saturate-200" src="/img-3.png" alt="" />
-            <img className="absolute blur left-0 right-0 saturate-0 w-full" src="/img-2.png" alt="" />
+            <img className="absolute  left-0 saturate-200" src="/img-1.png" alt="" />
+            <img className="absolute  right-0 top-20 saturate-200" src="/img-3.png" alt="" />
+            <img className="absolute  left-0 right-0 saturate-0 w-full" src="/img-2.png" alt="" />
 
             <div className="flex space-x-4 items-center justify-center z-10">
                 <img className="h-[10rem]" src={logoUrl} alt="" />

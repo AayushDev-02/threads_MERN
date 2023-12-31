@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { profileState, userState } from "@/store/user";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,6 +18,11 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const { toast } = useToast();
   const isLoginDisabled = !email || !password;
+  const setProfile = useSetRecoilState(profileState);
+  const setUser = useSetRecoilState(userState)
+
+
+
   const handleLogin = async () => {
     const data = {
       email,
@@ -27,11 +34,28 @@ const Login = () => {
 
       if (res.status === 200) {
         localStorage.setItem("authToken", res.data.token);
+        setUser(data.email);
         toast({
           title: "Success",
           description: "Login successful. Redirecting to Profile Page",
         });
-        navigate("/profile")
+
+        //check if profile is present ?
+        
+          const res2 = await axios.get("http://localhost:3000/profile", {
+            headers: {
+              Authorization: `Bearer ${res.data.token}`,
+            },
+          });
+  
+          if (res2.status === 200) {
+            console.log(res2.data);
+            setProfile(res2.data.profile);
+          }
+          else{
+            navigate("/profile")
+          }
+       //handle profile errors
       }
     } catch (err) {
       console.error("Error during login:", err);

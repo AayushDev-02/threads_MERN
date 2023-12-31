@@ -104,5 +104,22 @@ router.get("/following", authenticateJwt, async (req, res) => {
     }
 });
 
+router.get("/me", authenticateJwt, async(req,res) => {
+    try{
+        const userId = req.headers["userId"];
+
+        const userData = await User.findOne({_id:userId});
+
+        if(!userData){
+            return res.status(404).json({msg: "User not found"})
+        }
+
+        res.status(200).json({msg:"User data Successfully", data: userData})
+    }catch(err) {
+        console.log(err)
+        res.status(500).json({ msg: "Internal server error" });
+    }
+})
+
 
 export default router
