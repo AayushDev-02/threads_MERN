@@ -1,7 +1,7 @@
 import { UserCircle2 } from "lucide-react"
 import { Separator } from "../ui/separator"
 import { useRecoilValue } from "recoil"
-import { profileState, userState } from "@/store/user"
+import { profileState, userState } from "@/store"
 
 const ProfileCard = () => {
     

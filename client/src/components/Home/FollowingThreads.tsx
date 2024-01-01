@@ -1,43 +1,38 @@
-import { ThreadsInterface, profileState } from "@/store";
-import React from "react";
-import { useRecoilValue } from "recoil";
+import { ThreadsInterface } from "@/store";
+
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Separator } from "../ui/separator";
 import { HeartIcon, MessageCircle } from "lucide-react";
+import { Separator } from "@radix-ui/react-separator";
 import { Card } from "../ui/card";
-
-
-
-interface PersonalThreadsProps {
-  personalThreads: ThreadsInterface[];
-}
-
-const PersonalThreads: React.FC<PersonalThreadsProps> = ({ personalThreads }) => {
-  const profile = useRecoilValue(profileState)
-
-  if ((personalThreads.length === 0)) {
-    return (
-
-      <Card className=" h-[30rem] space-y-2 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-extrabold">No Thread</h1>
-        <p className="text-lg ">Create your first thread now</p>
-      </Card>
-
-    )
+interface FollowingThreadsProps {
+    followedThreads: ThreadsInterface[];
   }
+  
+const FollowingThreads: React.FC<FollowingThreadsProps> = ({followedThreads}) => {
+
+    if ((followedThreads.length === 0)) {
+        return (
+    
+          <Card className=" h-[30rem] space-y-2 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-extrabold">No Thread</h1>
+            <p className="text-lg ">Follow someone to see what they thread daily</p>
+          </Card>
+    
+        )
+      }
   return (
     <div>
       <div className="space-y-5">
-        {personalThreads.slice().reverse().reverse().map((thread, index) => (
+        {followedThreads.reverse().map((thread, index) => (
           <div key={index}>
             <div className="flex space-x-4 py-5">
               <Avatar>
-                <AvatarImage src={profile?.avatar} />
-                <AvatarFallback>{profile?.username.substring(0, 2)}</AvatarFallback>
+                <AvatarImage src={thread.profile.avatar} />
+                <AvatarFallback>{thread.profile.username.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <div>{profile?.username}</div>
+                  <div>{thread.profile.username}</div>
                   <h1>{thread.content}</h1>
                 </div>
                 <div className="flex space-x-5">
@@ -57,7 +52,7 @@ const PersonalThreads: React.FC<PersonalThreadsProps> = ({ personalThreads }) =>
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PersonalThreads;
+export default FollowingThreads

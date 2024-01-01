@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
-import { profileState, userState } from "@/store/user";
+import { profileState, userState } from "@/store";
 
 const Login = () => {
   const navigate = useNavigate();

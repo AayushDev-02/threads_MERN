@@ -1,6 +1,7 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export interface Profile {
+  _id: string;
   userId: string;
   username: string;
   bio: string;
@@ -28,6 +29,7 @@ export interface Comment {
 export interface ThreadsInterface {
   _id:string;
   user: string;
+  profile: Profile;
   content:string;
   images?: Image[];
   likes: string[];
@@ -54,4 +56,13 @@ export const profileState = atom<Profile | null>({
 export const hasProfileState = atom({
   key: 'hasProfileState',
   default: false,
+});
+
+export const profileIdSelector = selector<string | null>({
+  key: 'profileIdSelector',
+  get: ({ get }) => {
+    const profile = get(profileState);
+
+    return profile?.userId || null;
+  },
 });

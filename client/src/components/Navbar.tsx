@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { ModeToggle } from './ui/modeToggler';
 import { useTheme } from './theme-provider';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {  profileState, userState } from '@/store/user';
+import {  profileState, userState } from '@/store';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();

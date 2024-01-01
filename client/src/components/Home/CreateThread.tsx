@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
 import { useRecoilValue } from "recoil";
-import { profileState } from "@/store/user";
+import { profileState } from "@/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const CreateThread: React.FC = () => {
@@ -17,6 +17,7 @@ const CreateThread: React.FC = () => {
   const handlePost = async () => {
     const data = {
       content: content,
+      profileId: profile?._id,  
       images: [],
     };
     try {
