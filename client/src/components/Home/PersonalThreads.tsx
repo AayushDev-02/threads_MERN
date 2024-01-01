@@ -1,10 +1,11 @@
 import { ThreadsInterface, profileState } from "@/store";
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { HeartIcon, MessageCircle } from "lucide-react";
 import { Card } from "../ui/card";
+import { Button } from "../ui/button";
 
 
 
@@ -14,7 +15,7 @@ interface PersonalThreadsProps {
 
 const PersonalThreads: React.FC<PersonalThreadsProps> = ({ personalThreads }) => {
   const profile = useRecoilValue(profileState)
-
+  const [displayedThreads, setDisplayedThreads] = useState<number>(10);
   if ((personalThreads.length === 0)) {
     return (
 
@@ -25,10 +26,15 @@ const PersonalThreads: React.FC<PersonalThreadsProps> = ({ personalThreads }) =>
 
     )
   }
+  const reversedThreads = personalThreads.slice().reverse();
+
+    const handleLoadMore = () => {
+        setDisplayedThreads((prev) => prev + 10);
+    };
   return (
     <div>
       <div className="space-y-5">
-        {personalThreads.slice().reverse().reverse().map((thread, index) => (
+        {reversedThreads.slice(0,displayedThreads).map((thread, index) => (
           <div key={index}>
             <div className="flex space-x-4 py-5">
               <Avatar>
@@ -56,6 +62,11 @@ const PersonalThreads: React.FC<PersonalThreadsProps> = ({ personalThreads }) =>
           </div>
         ))}
       </div>
+      {displayedThreads < personalThreads.length && (
+                <Button variant={'outline'} onClick={handleLoadMore} className="w-full">
+                    Load More
+                </Button>
+            )}
     </div>
   );
 };

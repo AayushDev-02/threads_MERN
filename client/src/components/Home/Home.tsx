@@ -7,7 +7,7 @@ import Threads from '../Threads'
 const Home = () => {
   return (
     <div className='w-full h-full  px-52 flex space-x-32'>
-      <div className='w-2/3 h-full overflow-y-scroll scrollbar-track-transparent scrollbar-thin scrollbar-thumb-secondary space-y-5'>
+      <div className='w-2/3 pr-5 h-full overflow-y-scroll scrollbar-track-transparent scrollbar-thin scrollbar-thumb-secondary space-y-5'>
         <CreateThread />
         <Threads/>
       </div>

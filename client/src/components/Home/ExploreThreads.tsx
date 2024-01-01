@@ -4,13 +4,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { HeartIcon, MessageCircle } from "lucide-react";
 import { Separator } from "@radix-ui/react-separator";
 import { Card } from "../ui/card";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 interface ExploreThreadsProps {
   allThreads: ThreadsInterface[];
 }
 
 const ExploreThreads: React.FC<ExploreThreadsProps> = ({ allThreads }) => {
-
+  const [displayedThreads, setDisplayedThreads] = useState<number>(10);
+ 
   if ((allThreads.length === 0)) {
     return (
 
@@ -22,10 +25,15 @@ const ExploreThreads: React.FC<ExploreThreadsProps> = ({ allThreads }) => {
     )
   }
 
+  const reversedThreads = allThreads.slice().reverse();
+  const handleLoadMore = () => {
+    setDisplayedThreads(prev => prev + 10);
+  };
+
   return (
     <div>
       <div className="space-y-5">
-        {allThreads.slice().reverse().map((thread, index) => (
+        {reversedThreads.slice(0,displayedThreads).map((thread, index) => (
           <div key={index}>
             <div className="flex space-x-4 py-5">
               <Avatar>
@@ -53,6 +61,11 @@ const ExploreThreads: React.FC<ExploreThreadsProps> = ({ allThreads }) => {
           </div>
         ))}
       </div>
+      {displayedThreads < allThreads.length && (
+        <Button variant={'outline'} onClick={handleLoadMore} className="w-full">
+          Load More
+        </Button>
+      )}
     </div>
   )
 }
