@@ -9,8 +9,9 @@ import Profile from './components/Profile';
 // import { useEffect } from 'react';
 import Landing from './components/Landing';
 import Init from './hooks/Init';
-import MainLayout from './layouts/Layout2';
+import MainLayout from './layouts/MainLayout';
 import Home from './components/Home/Home';
+import AuthLayout from './layouts/AuthLayout';
 function App() {
   // const navigate = useNavigate()
   return (
@@ -19,10 +20,10 @@ function App() {
         {/* <Navbar /> */}
         <Init />
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/auth/signup" element={<SignUp />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<AuthLayout><Landing /></AuthLayout>} />
+          <Route path="/auth/signup" element={<AuthLayout><SignUp /></AuthLayout>} />
+          <Route path="/auth/login" element={<AuthLayout><Login /></AuthLayout>} />
+          <Route path="/profile" element={<AuthLayout><Profile /></AuthLayout>} />
           <Route path="/threads" element={<MainLayout><Home/></MainLayout>} />
         </Routes>
       </Router>
