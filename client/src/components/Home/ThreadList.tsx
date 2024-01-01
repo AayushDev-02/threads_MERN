@@ -1,39 +1,43 @@
 import { ThreadsInterface } from "@/store";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { HeartIcon, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Separator } from "@radix-ui/react-separator";
 import { Card } from "../ui/card";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
-interface ExploreThreadsProps {
-  allThreads: ThreadsInterface[];
+import LikeButton from "./LikeButton";
+
+interface ThreadListProps {
+  threads: ThreadsInterface[];
+  noThreadTitle: string;
+  noThreadDesc: string;
 }
 
-const ExploreThreads: React.FC<ExploreThreadsProps> = ({ allThreads }) => {
+const ThreadList: React.FC<ThreadListProps> = ({ threads,noThreadTitle,noThreadDesc }) => {
   const [displayedThreads, setDisplayedThreads] = useState<number>(10);
- 
-  if ((allThreads.length === 0)) {
+
+  if (threads.length === 0) {
     return (
-
-      <Card className=" h-[30rem] space-y-2 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-extrabold">No Thread</h1>
-        <p className="text-lg ">Be the first one to thread</p>
+      <Card className="h-[30rem] space-y-2 flex flex-col items-center justify-center">
+        <h1 className="text-4xl font-extrabold">{noThreadTitle}</h1>
+        <p className="text-lg">{noThreadDesc}</p>
       </Card>
-
-    )
+    );
   }
 
-  const reversedThreads = allThreads.slice().reverse();
+  const reversedThreads = threads.slice().reverse();
   const handleLoadMore = () => {
-    setDisplayedThreads(prev => prev + 10);
+    setDisplayedThreads((prev) => prev + 10);
   };
+
+  
 
   return (
     <div>
       <div className="space-y-5">
-        {reversedThreads.slice(0,displayedThreads).map((thread, index) => (
+        {reversedThreads.slice(0, displayedThreads).map((thread, index) => (
           <div key={index}>
             <div className="flex space-x-4 py-5">
               <Avatar>
@@ -46,10 +50,7 @@ const ExploreThreads: React.FC<ExploreThreadsProps> = ({ allThreads }) => {
                   <h1>{thread.content}</h1>
                 </div>
                 <div className="flex space-x-5">
-                  <button className="flex space-x-2">
-                    <HeartIcon />
-                    <span>{thread.likeCount}</span>
-                  </button>
+                <LikeButton threadId={thread._id} likesArr={thread.likes} likeCount={thread.likeCount} />
                   <button className="flex space-x-2">
                     <MessageCircle />
                     <span>{thread.commentCount}</span>
@@ -61,13 +62,13 @@ const ExploreThreads: React.FC<ExploreThreadsProps> = ({ allThreads }) => {
           </div>
         ))}
       </div>
-      {displayedThreads < allThreads.length && (
+      {displayedThreads < threads.length && (
         <Button variant={'outline'} onClick={handleLoadMore} className="w-full">
           Load More
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ExploreThreads
+export default ThreadList;

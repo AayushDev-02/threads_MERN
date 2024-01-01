@@ -66,3 +66,11 @@ export const profileIdSelector = selector<string | null>({
     return profile?.userId || null;
   },
 });
+export const userIdSelector = selector<string | null>({
+  key: 'userIdSelector',
+  get: ({ get }) => {
+    const user = get(userState);
+
+    return user?._id || null;
+  },
+});

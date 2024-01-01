@@ -1,10 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ExploreThreads from "./Home/ExploreThreads"
-import PersonalThreads from "./Home/PersonalThreads"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { ThreadsInterface } from "@/store"
-import FollowingThreads from "./Home/FollowingThreads"
+import ThreadList from "./Home/ThreadList"
 
 
 const Threads = () => {
@@ -61,9 +59,9 @@ const Threads = () => {
                     <TabsTrigger className="w-full" value="password">Followring</TabsTrigger>
                     <TabsTrigger className="w-full" value="personal">Personal</TabsTrigger>
                 </TabsList>
-                <TabsContent className="w-full  p-5" value="account"><ExploreThreads allThreads={allThreads}/></TabsContent>
-                <TabsContent className="w-full  p-5" value="password"><FollowingThreads followedThreads={followedThreads} /></TabsContent>
-                <TabsContent className="w-full  p-5" value="personal"><PersonalThreads personalThreads={personalThreads}/></TabsContent>
+                <TabsContent className="w-full  p-5" value="account"><ThreadList threads={allThreads} noThreadTitle="No Threads" noThreadDesc="Be the first one to thread"  /></TabsContent>
+                <TabsContent className="w-full  p-5" value="password"><ThreadList threads={followedThreads} noThreadTitle="No Threads" noThreadDesc="Be the first one to thread"  /></TabsContent>
+                <TabsContent className="w-full  p-5" value="personal"><ThreadList threads={personalThreads} noThreadTitle="No Threads" noThreadDesc="Be the first one to thread"  /></TabsContent>
             </Tabs>
         </div>
 
