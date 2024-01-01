@@ -16,7 +16,7 @@ export interface Profile {
   following: string[];
 }
 
-interface Image {
+export interface Image {
   url:string,
   caption?:string
 }
