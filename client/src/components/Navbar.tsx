@@ -37,7 +37,7 @@ const AuthenticatedContent = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem('authToken');
-    setUser('');
+    setUser(null);
     if(profile) {
       setProfile(null)
     }
@@ -47,7 +47,7 @@ const AuthenticatedContent = () => {
   <>
     {profile ? (
       <div className='space-x-2'>
-        <Button>{profile.username}</Button>
+        <Button onClick={() => navigate('/threads')}>{profile.username}</Button>
         <Button variant={'outline'} className='text-red-500' onClick={handleLogOut}>
           Log Out
         </Button>

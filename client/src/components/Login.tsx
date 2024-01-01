@@ -35,10 +35,7 @@ const Login = () => {
       if (res.status === 200) {
         localStorage.setItem("authToken", res.data.token);
         setUser(res.data.user);
-        toast({
-          title: "Success",
-          description: "Login successful. Redirecting to Profile Page",
-        });
+        
 
         //check if profile is present ?
         
@@ -51,8 +48,17 @@ const Login = () => {
           if (res2.status === 200) {
             console.log(res2.data);
             setProfile(res2.data.profile);
+            toast({
+              title: "Success",
+              description: "Login successful. Redirecting to Home Page",
+            });
+            navigate('/threads')
           }
           else{
+            toast({
+              title: "Success",
+              description: "Login successful. Redirecting to Profile Page",
+            });
             navigate("/profile")
           }
        //handle profile errors

@@ -1,10 +1,20 @@
 import { HeartIcon, HomeIcon, PlusSquare, SearchIcon, UserCircle2Icon } from 'lucide-react'
-import React from 'react'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
+import { profileState, userState } from '@/store'
 
 const Sidebar = () => {
     const navigate = useNavigate()
+    const setUser = useSetRecoilState(userState)
+    const setProfile = useSetRecoilState(profileState)
+    const handleLogOut = () => {
+        localStorage.removeItem('authToken');
+        setUser(null);
+        setProfile(null)
+
+        navigate('/auth/login')
+      };
     return (
         <div className='w-full h-full flex flex-col justify-between items-start border-r border-border px-5 py-10 text-black dark:text-white'>
             <div className='space-y-10'>
@@ -36,7 +46,7 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className='w-full'>
-                <Button className='text-red-500 w-full' variant={'outline'}>Sign Out</Button>
+                <Button onClick={handleLogOut} className='text-red-500 w-full' variant={'outline'}>Sign Out</Button>
             </div>
         </div>
     )
