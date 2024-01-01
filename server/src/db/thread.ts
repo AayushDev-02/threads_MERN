@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 
 interface Comment {
+    profile: Types.ObjectId;
     user: Types.ObjectId;
     content: string;
     likes: Types.ObjectId[];
@@ -13,6 +14,7 @@ interface Image {
 }
 
 interface ThreadDocument extends Document {
+    profile: Types.ObjectId;
     user: Types.ObjectId;
     content: string;
     images?: Image[];
@@ -24,15 +26,21 @@ interface ThreadDocument extends Document {
 
 const commentSchema = new Schema<Comment>(
     {
+        profile: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Profile",
+            required: true,
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+            required: true,
         },
         content: String,
         likes: [
             {
                 type: Types.ObjectId,
-                ref: "User",
+                ref: "Profile",
             },
         ],
     },
@@ -45,8 +53,13 @@ commentSchema.virtual("likeCount").get(function (this: Comment) {
 
 const threadSchema = new Schema<ThreadDocument>(
     {
+        profile: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Profile",
+            required: true,
+        },
         user: {
-            type:  mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
@@ -63,7 +76,7 @@ const threadSchema = new Schema<ThreadDocument>(
         likes: [
             {
                 type: Types.ObjectId,
-                ref: "User",
+                ref: "Profile",
             },
         ],
         comments: [commentSchema],
@@ -83,6 +96,5 @@ threadSchema.virtual("likeCount").get(function (this: ThreadDocument) {
 threadSchema.set("toJSON", { virtuals: true });
 
 const Thread = mongoose.model<ThreadDocument>("Thread", threadSchema);
-
 
 export default Thread;
