@@ -10,11 +10,11 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => (
-    <div className="w-full h-full flex">
+    <div className="w-full h-full flex dark:bg-[#101010] ">
         <div className="xl:w-[12%]">
             <Sidebar />
         </div>
-        <div className="xl:w-[88%] py-10">
+        <div className="xl:w-[88%] py-10 ">
             {children}
         </div>
         {/* Additional components or styles specific to the main layout */}
