@@ -5,9 +5,10 @@ import { Card } from "../ui/card"
 
 interface CommentListProps {
     comments: Comment[]
+    threadId: string;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+const CommentList: React.FC<CommentListProps> = ({ comments, threadId }) => {
 
     console.log(comments)
     const commentLength = comments.length;
@@ -44,7 +45,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments }) => {
                                     <h1>{comment.content}</h1>
                                 </div>
                                 <div className={`flex space-x-5  pb-5`}>
-                                    <LikeButton threadId={comment._id} likesArr={comment.likes} likeCount={comment.likeCount} />
+                                    <LikeButton type="Comment" threadId={threadId} commentId={comment._id} likesArr={comment.likes} likeCount={comment.likeCount} />
 
                                 </div>
 

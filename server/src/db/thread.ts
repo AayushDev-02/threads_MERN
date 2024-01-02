@@ -88,12 +88,16 @@ threadSchema.virtual("commentCount").get(function (this: ThreadDocument) {
     return this.comments.length;
 });
 
-// Define virtual property for like count
 threadSchema.virtual("likeCount").get(function (this: ThreadDocument) {
     return this.likes.length;
 });
 
+commentSchema.virtual("likeCount").get(function (this: Comment) {
+    return this.likes.length;
+});
+
 threadSchema.set("toJSON", { virtuals: true });
+commentSchema.set("toJSON", { virtuals: true });
 
 const Thread = mongoose.model<ThreadDocument>("Thread", threadSchema);
 

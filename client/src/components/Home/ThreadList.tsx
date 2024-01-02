@@ -92,7 +92,7 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThrea
                             </div>
                         </div>
                         {selectedThreadId === thread._id && (
-                            <CommentList comments={thread.comments || []} />
+                            <CommentList threadId={thread._id} comments={thread.comments || []} />
                         )}
                         <Separator />
                     </div>
