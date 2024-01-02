@@ -65,7 +65,7 @@ export const profileIdSelector = selector<string | null>({
   get: ({ get }) => {
     const profile = get(profileState);
 
-    return profile?.userId || null;
+    return profile?._id || null;
   },
 });
 export const userIdSelector = selector<string | null>({
