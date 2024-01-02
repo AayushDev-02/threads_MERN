@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 
-interface Comment {
+interface Comment extends Document {
     profile: Types.ObjectId;
     user: Types.ObjectId;
     content: string;

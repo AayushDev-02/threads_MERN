@@ -21,10 +21,12 @@ export interface Image {
   caption?:string
 }
 export interface Comment {
+  _id:string
   user: string;
   content: string;
   likes: string[];
-  likeCount: number
+  likeCount: number;
+  profile: Profile;
 }
 export interface ThreadsInterface {
   _id:string;
@@ -33,7 +35,7 @@ export interface ThreadsInterface {
   content:string;
   images?: Image[];
   likes: string[];
-  comment :Comment[];
+  comments:Comment[];
   commentCount: number;
   likeCount: number;
 }
