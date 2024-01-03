@@ -12,6 +12,8 @@ import Init from './hooks/Init';
 import MainLayout from './layouts/MainLayout';
 import Home from './components/Home/Home';
 import AuthLayout from './layouts/AuthLayout';
+import Settings from './components/Settings/Settings';
+import SettingsLayout from './layouts/SettingsLayout';
 function App() {
   // const navigate = useNavigate()
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/auth/login" element={<AuthLayout><Login /></AuthLayout>} />
           <Route path="/profile" element={<AuthLayout><Profile /></AuthLayout>} />
           <Route path="/threads" element={<MainLayout><Home/></MainLayout>} />
+          <Route path="/settings" element={<MainLayout><Settings/></MainLayout>} />
         </Routes>
       </Router>
       <Toaster />

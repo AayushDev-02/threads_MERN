@@ -1,4 +1,4 @@
-import { HeartIcon, HomeIcon, PlusSquare, SearchIcon, UserCircle2Icon } from 'lucide-react'
+import { HeartIcon, HomeIcon, PlusSquare, SearchIcon, SettingsIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
@@ -22,7 +22,7 @@ const Sidebar = () => {
                 <img className='w-8 h-8 ' src="/logo.svg" alt="" />
                 </button>
                 <div className='space-y-6'>
-                    <button className='flex space-x-3 w-full p-2'>
+                    <button onClick={() => navigate('/threads')} className='flex space-x-3 w-full p-2'>
                         <HomeIcon/>
                         <div>Home</div>
                     </button>
@@ -38,9 +38,9 @@ const Sidebar = () => {
                         <HeartIcon />
                         <div>Activity</div>
                     </button>
-                    <button className='flex space-x-3 w-full p-2'>
-                        <UserCircle2Icon />
-                        <div>Profile</div>
+                    <button onClick={() => navigate("/settings")} className='flex space-x-3 w-full p-2'>
+                        <SettingsIcon />
+                        <div>Settings</div>
                     </button>
                    
                 </div>

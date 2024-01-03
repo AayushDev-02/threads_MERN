@@ -45,7 +45,7 @@ const Threads = () => {
             }
           })
 
-          console.log(res)
+          // console.log(res)
         setFollowedThreads(res.data.threads)
         }
         getFollowingThreads();

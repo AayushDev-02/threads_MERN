@@ -46,7 +46,7 @@ const Login = () => {
           });
   
           if (res2.status === 200) {
-            console.log(res2.data);
+            // console.log(res2.data);
             setProfile(res2.data.profile);
             toast({
               title: "Success",
