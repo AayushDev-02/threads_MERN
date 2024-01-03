@@ -3,11 +3,82 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from '../ui/button';
 import { Profile } from '@/store';
+import { useToast } from '../ui/use-toast';
 
 
 
 const ProfileList: React.FC = () => {
     const [profileList, setProfileList] = useState<Profile[]>([]);
+    const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>({});
+    const { toast } = useToast();
+
+    const handleFollowProfile = async (profileId: string) => {
+        const data = {};
+        try {
+            await axios.post(`http://localhost:3000/user/follow/${profileId}`, data, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+            });
+
+
+            setFollowStatus((prevStatus) => ({
+                ...prevStatus,
+                [profileId]: true,
+            }));
+
+            toast({
+                variant: "default",
+                title: "Followed Successfully",
+                description: "Successfully followed the profile",
+            });
+        } catch (err) {
+            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Error following the profile",
+            });
+        }
+    }
+
+    const handleUnFollowProfile = async (profileId: string) => {
+        const data = {};
+        try {
+            await axios.post(`http://localhost:3000/user/unfollow/${profileId}`, data, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+            });
+
+
+            setFollowStatus((prevStatus) => ({
+                ...prevStatus,
+                [profileId]: false,
+            }));
+
+            toast({
+                variant: "default",
+                title: "UnFollowed Successfully",
+                description: "Successfully unfollowed the profile",
+            });
+        } catch (err) {
+            console.log(err)
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Error unfollowing the profile",
+            });
+        }
+    }
+
+    const handleButtonClick = (profileId: string) => {
+        // Use handleFollowProfile if not following, otherwise use handleUnFollowProfile
+        const onClickHandler = followStatus[profileId] ? handleUnFollowProfile : handleFollowProfile;
+
+        onClickHandler(profileId);
+    };
+
 
     useEffect(() => {
         const getAllProfiles = async () => {
@@ -18,7 +89,6 @@ const ProfileList: React.FC = () => {
                     }
                 });
 
-                // console.log(res.data);
                 setProfileList(res.data.profilesNotFollowed);
             } catch (error) {
                 console.error("Error fetching profiles:", error);
@@ -45,7 +115,7 @@ const ProfileList: React.FC = () => {
                         </div>
                     </div>
 
-                    <Button variant={"outline"}>Follow</Button>
+                    <Button onClick={() => handleButtonClick(element._id)} variant={"outline"}>{followStatus[element._id] ? "Unfollow" : "Follow"}</Button>
                 </div>
             ))}
         </div>

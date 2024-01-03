@@ -40,7 +40,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likeCount, likesArr, threadId, 
         } catch (err) {
             console.log(err)
             toast({
-                title: "destructive",
+                variant:"destructive",
+                title: "Error",
                 description: "Error posting a like",
             });
         }

@@ -13,8 +13,7 @@ router.post("/follow/:profileId", authenticateJwt, async (req, res) => {
 
     const profileId = req.params.profileId;
     const currentUserId = req.headers["userId"]
-    console.log(currentUserId)
-    console.log(profileId)
+
     const currentProfile = await Profile.findOneAndUpdate(
         { userId: currentUserId, following: { $nin: profileId } },
         { $push: { following: profileId } },
