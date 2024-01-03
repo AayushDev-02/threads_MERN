@@ -241,7 +241,7 @@ router.get('/followed', authenticateJwt, async (req, res) => {
       return res.status(404).json({ msg: 'User profile not found' });
     }
 
-    const followedProfilesThreads = await Thread.find({ user: { $in: currentUserProfile.following } }).populate('profile user comments.profile');
+    const followedProfilesThreads = await Thread.find({ profile: { $in: currentUserProfile.following } }).populate('profile user comments.profile');
     
     res.status(200).json({
       threads: followedProfilesThreads,

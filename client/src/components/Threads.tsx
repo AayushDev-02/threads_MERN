@@ -38,17 +38,17 @@ const Threads = () => {
         getAllThreads();
     }, [])
     useEffect(() => {
-        const getAllThreads = async () => {
+        const getFollowingThreads = async () => {
           const res = await axios.get("http://localhost:3000/thread/followed", {
             headers: {
               Authorization : `Bearer ${localStorage.getItem("authToken")}`
             }
           })
 
-        //   console.log(res)
+          console.log(res)
         setFollowedThreads(res.data.threads)
         }
-        getAllThreads();
+        getFollowingThreads();
     }, [])
 
     return (
