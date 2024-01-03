@@ -21,7 +21,7 @@ interface ThreadListProps {
 const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThreadDesc }) => {
     const [displayedThreads, setDisplayedThreads] = useState<number>(10);
     const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
-   
+
     if (threads.length === 0) {
         return (
             <Card className="h-[30rem] space-y-2 flex flex-col items-center justify-center">
@@ -39,7 +39,7 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThrea
     const handleToggleComments = (threadId: string) => {
         setSelectedThreadId((prev) => (prev === threadId ? null : threadId));
     };
-    
+
 
     return (
         <div>
@@ -56,7 +56,6 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThrea
                                     <>
                                         <div className="relative  w-0.5 grow rounded-full bg-neutral-800"></div>
                                         {!selectedThreadId && (
-
                                             <div className="flex flex-row  ">
                                                 {thread.comments.slice(0, 2).map((comment, index) => {
                                                     const isFirst = index === 0;
@@ -91,7 +90,7 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThrea
                                         <MessageCircle />
                                         <span>{thread.commentCount}</span>
                                     </button>
-                                    <CommentButton threadId={thread._id}/>
+                                    <CommentButton threadId={thread._id} />
                                 </div>
                             </div>
                         </div>

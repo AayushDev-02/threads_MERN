@@ -80,7 +80,8 @@ router.post("/", authenticateJwt, async (req, res) => {
 
 
     res.status(200).json({
-        msg: "Profile created Successfully"
+        msg: "Profile created Successfully",
+        profile: newProfile
     })
 })
 
@@ -167,6 +168,49 @@ router.patch("/", authenticateJwt, async (req, res) => {
     res.status(200).json({ msg: "Profile updated successfully" })
 
 })
+
+//GET ALL THE PROFILES WHICH CURRENT PROFILE/USER DOES NOT FOLLOW
+router.get("/not-followed", authenticateJwt, async (req, res) => {
+    try {
+        const userId = req.headers["userId"];
+        const currentUser = await Profile.findOne({ userId }).populate('following');
+        if (!currentUser) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+
+        const profilesNotFollowed = await Profile.find({ _id: { $nin: currentUser.following } })
+            .select('username bio followersCount followingCount');
+
+        res.status(200).json({
+            profiles: profilesNotFollowed
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
+    }
+});
+
+// GET PROFILES FOLLOWED BY CURRENT USER
+router.get("/followed", authenticateJwt, async (req, res) => {
+    try {
+        const userId = req.headers["userId"];
+        const currentUser = await Profile.findOne({ userId }).populate('following')
+            .select('username bio followersCount followingCount');
+        
+        if (!currentUser) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+
+        const followedProfiles = currentUser.following || []; // Default to an empty array if undefined
+
+        res.status(200).json({
+            profiles: followedProfiles
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
+    }
+});
 
 
 export default router
