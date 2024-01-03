@@ -1,27 +1,44 @@
-import { UserCircle2 } from "lucide-react"
 import { Separator } from "../ui/separator"
 import { useRecoilValue } from "recoil"
 import { profileState, userState } from "@/store"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Button } from "../ui/button"
+import { Card, CardTitle } from "../ui/card"
 
 const ProfileCard = () => {
-    
+
     const profile = useRecoilValue(profileState)
     const user = useRecoilValue(userState)
     return (
-        <>
-        <div className="flex items-center justify-normal p-5">
-            <div className="flex space-x-2 items-center justify-start">
-                <UserCircle2 width={25} height={25} />
+        <div className="space-y-5">
+            <div className="flex items-center justify-between p-5">
+                <div className="flex space-x-2 items-center justify-start">
+                    <Avatar >
+                        <AvatarImage src={profile?.avatar} />
+                        <AvatarFallback>{profile?.username.substring(0, 2)}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <h1>{profile?.username}</h1>
+                        <h4 className="text-gray-500">{user?.email}</h4>
+                    </div>
+                </div>
                 <div>
-                    <h1>{ profile?.username}</h1>
-                    <h4 className="text-gray-500">{user?.email}</h4>
+                    <Button>View Profile</Button>
                 </div>
             </div>
-        
+            <div className="grid grid-cols-2 gap-2">
+                <Card className="w-full px-5 py-3 flex flex-row items-center justify-between">
+                    <div className="text-sm font-light">Followers</div>
+                    <CardTitle>{profile?.followersCount}</CardTitle>
+                </Card>
+                <Card className="w-full px-5 py-3 flex flex-row items-center justify-between">
+                    <div className="text-sm font-light">Following</div>
+                    <CardTitle>{profile?.followingCount}</CardTitle>
+                </Card>
+            </div>
+            <Separator />
         </div>
-        <Separator/>
-        </>
-    
+
     )
 }
 

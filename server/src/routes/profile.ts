@@ -169,20 +169,23 @@ router.patch("/", authenticateJwt, async (req, res) => {
 
 })
 
-//GET ALL THE PROFILES WHICH CURRENT PROFILE/USER DOES NOT FOLLOW
-router.get("/not-followed", authenticateJwt, async (req, res) => {
+//GET PROFILES NOT FOLLOWED BY CURRENT USER
+router.get("/get/not-followed", authenticateJwt, async (req, res) => {
     try {
         const userId = req.headers["userId"];
-        const currentUser = await Profile.findOne({ userId }).populate('following');
-        if (!currentUser) {
-            return res.status(404).json({ msg: "User not found" });
+        const currentUserProfile = await Profile.findOne({ userId });
+
+        if (!currentUserProfile) {
+            return res.status(404).json({ msg: "Current user profile not found" });
         }
 
-        const profilesNotFollowed = await Profile.find({ _id: { $nin: currentUser.following } })
-            .select('username bio followersCount followingCount');
+        const profilesNotFollowed = await Profile.find({
+            _id: { $ne: currentUserProfile._id },
+            followers: { $nin: [currentUserProfile._id] },
+        });
 
         res.status(200).json({
-            profiles: profilesNotFollowed
+            profilesNotFollowed: profilesNotFollowed,
         });
     } catch (error) {
         console.error(error);
@@ -190,27 +193,6 @@ router.get("/not-followed", authenticateJwt, async (req, res) => {
     }
 });
 
-// GET PROFILES FOLLOWED BY CURRENT USER
-router.get("/followed", authenticateJwt, async (req, res) => {
-    try {
-        const userId = req.headers["userId"];
-        const currentUser = await Profile.findOne({ userId }).populate('following')
-            .select('username bio followersCount followingCount');
-        
-        if (!currentUser) {
-            return res.status(404).json({ msg: "User not found" });
-        }
-
-        const followedProfiles = currentUser.following || []; // Default to an empty array if undefined
-
-        res.status(200).json({
-            profiles: followedProfiles
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: "Internal server error" });
-    }
-});
 
 
 export default router

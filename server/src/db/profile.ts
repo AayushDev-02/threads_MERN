@@ -35,12 +35,12 @@ const profileSchema = new mongoose.Schema({
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: "Profile" }],
 });
 
-profileSchema.virtual("followersCount").get(function () {
-    return this.followers.length;
+profileSchema.virtual("followersCount").get(function (this: ProfileDocument) {
+    return this.following ? this.followers.length : 0;
 });
 
-profileSchema.virtual("followingCount").get(function () {
-    return this.following.length;
+profileSchema.virtual("followingCount").get(function (this: ProfileDocument) {
+    return this.following ? this.following.length : 0;
 });
 
 profileSchema.set("toJSON", { virtuals: true });

@@ -14,6 +14,8 @@ export interface Profile {
   };
   followers: string[];
   following: string[];
+  followersCount: number;
+  followingCount:number
 }
 
 export interface Image {

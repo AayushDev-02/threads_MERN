@@ -9,28 +9,29 @@ dotenv.config()
 const router = express.Router()
 
 //Follow other user
-router.post("/follow/:userId", authenticateJwt, async (req, res) => {
+router.post("/follow/:profileId", authenticateJwt, async (req, res) => {
 
-    const userId = req.params.userId;
+    const profileId = req.params.profileId;
     const currentUserId = req.headers["userId"]
-
-    const currentUser = await Profile.findOneAndUpdate(
-        { userId: currentUserId, following: { $ne: userId } },
-        { $push: { following: userId } },
+    console.log(currentUserId)
+    console.log(profileId)
+    const currentProfile = await Profile.findOneAndUpdate(
+        { userId: currentUserId, following: { $nin: profileId } },
+        { $push: { following: profileId } },
         { new: true }
     );
 
-    if (!currentUser) {
+    if (!currentProfile) {
         return res.status(404).json({ msg: "Current user not found" });
     }
 
-    const userToFollow = await Profile.findOneAndUpdate(
-        { userId: userId, followers: { $ne: currentUserId } },
-        { $push: { followers: currentUserId } },
+    const profileToFollow = await Profile.findOneAndUpdate(
+        { _id: profileId, followers: { $ne: currentProfile._id } },
+        { $push: { followers: currentProfile._id } },
         { new: true }
     );
 
-    if (!userToFollow) {
+    if (!profileToFollow) {
         return res.status(404).json({ msg: "User to follow not found" });
     }
 
@@ -38,34 +39,37 @@ router.post("/follow/:userId", authenticateJwt, async (req, res) => {
 
 })
 
-//Unfollow other user
-router.post("/unfollow/:userId", authenticateJwt, async (req, res) => {
+// Unfollow user
+router.post("/unfollow/:profileId", authenticateJwt, async (req, res) => {
+    try {
+        const profileId = req.params.profileId;
+        const currentUserId = req.headers["userId"];
 
-    const userId = req.params.userId;
-    const currentUserId = req.headers["userId"];
+        const currentProfile = await Profile.findOneAndUpdate(
+            { userId: currentUserId, following: profileId },
+            { $pull: { following: profileId } },
+            { new: true }
+        );
 
-    
-    const currentUser = await Profile.findOneAndUpdate(
-        { userId: currentUserId, following: userId }, 
-        { $pull: { following: userId } },
-        { new: true } 
-    );
+        if (!currentProfile) {
+            return res.status(404).json({ msg: "Current user not found or not following the specified user" });
+        }
 
-    if (!currentUser) {
-        return res.status(404).json({ msg: "Current user not found or not following the user" });
+        const profileToUnfollow = await Profile.findOneAndUpdate(
+            { _id: profileId, followers: currentProfile._id },
+            { $pull: { followers: currentProfile._id } },
+            { new: true }
+        );
+
+        if (!profileToUnfollow) {
+            return res.status(404).json({ msg: "User to unfollow not found or not being followed by the current user" });
+        }
+
+        res.status(200).json({ msg: "Successfully unfollowed user" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
     }
-
-    const userToUnfollow = await Profile.findOneAndUpdate(
-        { userId: userId, followers: currentUserId },
-        { $pull: { followers: currentUserId } },
-        { new: true } 
-    );
-    if (!userToUnfollow) {
-        return res.status(404).json({ msg: "User to unfollow not found or not being followed" });
-    }
-
-    res.status(200).json({ msg: "Successfully unfollowed user" });
-
 });
 
 // Get All Followers

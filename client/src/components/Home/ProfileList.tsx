@@ -12,14 +12,14 @@ const ProfileList: React.FC = () => {
     useEffect(() => {
         const getAllProfiles = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/profile/current/all", {
+                const res = await axios.get("http://localhost:3000/profile/get/not-followed", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`
                     }
                 });
 
                 // console.log(res.data);
-                setProfileList(res.data.profiles);
+                setProfileList(res.data.profilesNotFollowed);
             } catch (error) {
                 console.error("Error fetching profiles:", error);
             }
@@ -41,7 +41,7 @@ const ProfileList: React.FC = () => {
 
                         <div className='space-y-1'>
                             <h1 className='font-semibold'>{element.username}</h1>
-                            <p className='text-gray-500 text-sm'>{element.bio.substring(0, 20) + "......."}</p>
+                            <p className='text-gray-500 text-sm'>{element.bio.substring(0, 15) + "......."}</p>
                         </div>
                     </div>
 
