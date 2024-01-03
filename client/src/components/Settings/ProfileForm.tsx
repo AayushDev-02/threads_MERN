@@ -44,25 +44,7 @@ const ProfileForm = () => {
     const [state, setState] = useState(profile?.location.state || '');
     const [country, setCountry] = useState(profile?.location.country || '');
 
-    useEffect(() => {
-
-        if (profile) {
-            // console.log(profile)
-            setUsername(profile.username || '');
-            setBio(profile.bio || '');
-            setAvatar(profile.avatar || '');
-            setCity(profile.location.city || '');
-            setState(profile.location.state || '');
-            setCountry(profile.location.country || '');
-
-            if (profile.links) {
-                const mappedArray = Object.entries(profile.links).map(([key, value]) => ({ key, link: value }));
-                setLinks(mappedArray)
-            }
-
-
-        }
-    }, [profile]);
+   
 
     const removeLink = (index: number) => {
         const updatedLinks = [...links];
@@ -134,6 +116,26 @@ const ProfileForm = () => {
 
 
     }
+
+    useEffect(() => {
+
+        if (profile) {
+            // console.log(profile)
+            setUsername(profile.username || '');
+            setBio(profile.bio || '');
+            setAvatar(profile.avatar || '');
+            setCity(profile.location.city || '');
+            setState(profile.location.state || '');
+            setCountry(profile.location.country || '');
+
+            if (profile.links) {
+                const mappedArray = Object.entries(profile.links).map(([key, value]) => ({ key, link: value }));
+                setLinks(mappedArray)
+            }
+
+
+        }
+    }, [profile]);
     return (
         <div className="space-y-5">
             <div className="space-y-1.5">

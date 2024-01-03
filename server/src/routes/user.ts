@@ -8,6 +8,10 @@ dotenv.config()
 
 const router = express.Router()
 
+const userUpdateProps = z.object({
+    password: z.string().min(7)
+})
+
 //Follow other user
 router.post("/follow/:profileId", authenticateJwt, async (req, res) => {
 
@@ -124,5 +128,25 @@ router.get("/me", authenticateJwt, async(req,res) => {
     }
 })
 
+router.patch("/update/password", authenticateJwt ,async (req, res) => {
+    try{
+
+        const body = userUpdateProps.safeParse(req.body)
+        if(!body.success){
+            return res.status(403).json({msg: body.error})
+        }
+        const userId = req.headers["userId"];
+        const userData = await User.findOneAndUpdate({_id:userId}, {password: body.data.password}, {new: true});
+
+        if(!userData){
+            return res.status(404).json({msg: "User not found"})
+        }
+
+        res.status(200).json({msg:"User Updated Successfully", data: userData})
+    }catch(err) {
+        console.log(err)
+        res.status(500).json({ msg: "Internal server error" });
+    }
+})
 
 export default router
