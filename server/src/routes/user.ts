@@ -92,6 +92,22 @@ router.get("/followers", authenticateJwt, async (req, res) => {
         res.status(500).json({ msg: "Internal server error" });
     }
 });
+router.get("/followers/:profileId", authenticateJwt, async (req, res) => {
+    try {
+        const profileId = req.params.profileId
+
+        const profile = await Profile.findOne({ _id: profileId }).populate("followers", "_id username bio");
+
+        if (!profile) {
+            return res.status(404).json({ msg: "Current user not found" });
+        }
+
+        res.status(200).json({ followers: profile.followers });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
+    }
+});
 
 // Get All Following
 router.get("/following", authenticateJwt, async (req, res) => {
@@ -105,6 +121,23 @@ router.get("/following", authenticateJwt, async (req, res) => {
         }
 
         res.status(200).json({ following: currentUser.following });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
+    }
+});
+
+router.get("/following/:profileId", authenticateJwt, async (req, res) => {
+    try {
+        const profileId = req.params.profileId
+
+        const profile = await Profile.findOne({ _id: profileId }).populate("following", "_id username bio");
+
+        if (!profile) {
+            return res.status(404).json({ msg: "Current user not found" });
+        }
+
+        res.status(200).json({ following: profile.following });
     } catch (error) {
         console.error(error);
         res.status(500).json({ msg: "Internal server error" });

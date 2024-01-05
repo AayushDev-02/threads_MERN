@@ -130,6 +130,17 @@ router.get('/user/:userId', authenticateJwt, async (req, res) => {
   });
 });
 
+// GET THREADS BY PROFILE
+router.get('/profile/:profileId', authenticateJwt, async (req, res) => {
+  const profileId = req.params.profileId;
+
+  const userThreads = await Thread.find({ profile: profileId }).populate('profile user comments.profile');
+
+  res.status(200).json({
+    threads: userThreads,
+  });
+});
+
 // GET CURRENT USER THREADS
 router.get('/current', authenticateJwt, async (req, res) => {
   const currentUserId = req.headers['userId'];

@@ -13,7 +13,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './components/Home/Home';
 import AuthLayout from './layouts/AuthLayout';
 import Settings from './components/Settings/Settings';
-import SettingsLayout from './layouts/SettingsLayout';
+import ProfilePage from './components/Home/ProfilePage';
 function App() {
   // const navigate = useNavigate()
   return (
@@ -25,9 +25,10 @@ function App() {
           <Route path="/" element={<AuthLayout><Landing /></AuthLayout>} />
           <Route path="/auth/signup" element={<AuthLayout><SignUp /></AuthLayout>} />
           <Route path="/auth/login" element={<AuthLayout><Login /></AuthLayout>} />
-          <Route path="/profile" element={<AuthLayout><Profile /></AuthLayout>} />
+          <Route path="/create-profile" element={<AuthLayout><Profile /></AuthLayout>} />
           <Route path="/threads" element={<MainLayout><Home/></MainLayout>} />
           <Route path="/settings" element={<MainLayout><Settings/></MainLayout>} />
+          <Route path="/profile/:id" element={<MainLayout><ProfilePage/></MainLayout>} />
         </Routes>
       </Router>
       <Toaster />

@@ -11,6 +11,7 @@ import { Separator } from "../ui/separator";
 import ImageGrid from "./ImageGrid";
 import CommentList from "./CommentList";
 import CommentButton from "./CommentButton";
+import { useNavigate } from "react-router-dom";
 
 interface ThreadListProps {
     threads: ThreadsInterface[];
@@ -19,6 +20,7 @@ interface ThreadListProps {
 }
 
 const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThreadDesc }) => {
+    const navigate = useNavigate()
     const [displayedThreads, setDisplayedThreads] = useState<number>(10);
     const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
 
@@ -76,7 +78,7 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, noThreadTitle, noThrea
                             <div className="space-y-4">
 
                                 <div className="space-y-1">
-                                    <div>{thread.profile.username}</div>
+                                    <div className="cursor-pointer hover:underline" onClick={() => navigate(`/profile/${thread.profile._id}`)}>{thread.profile.username}</div>
                                     <h1>{thread.content}</h1>
                                 </div>
                                 {thread.images && (

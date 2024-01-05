@@ -4,9 +4,10 @@ import { profileState, userState } from "@/store"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
 import { Card, CardTitle } from "../ui/card"
+import { useNavigate } from "react-router-dom"
 
 const ProfileCard = () => {
-
+    const navigate = useNavigate()
     const profile = useRecoilValue(profileState)
     const user = useRecoilValue(userState)
     return (
@@ -23,7 +24,7 @@ const ProfileCard = () => {
                     </div>
                 </div>
                 <div>
-                    <Button>View Profile</Button>
+                    <Button onClick={() => navigate(`/profile/${profile?._id}`)}>View Profile</Button>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
