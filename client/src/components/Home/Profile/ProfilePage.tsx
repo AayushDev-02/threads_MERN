@@ -93,7 +93,7 @@ const ProfilePage = () => {
                             <AvatarImage src={profileData?.avatar} />
                             <AvatarFallback>{profileData?.username.substring(0, 2)}</AvatarFallback>
                         </Avatar>
-                        <div className="space-y-4">
+                        <div className="space-y-4 w-1/2">
                             <div className="space-y-2">
                                 <h1 className="text-4xl font-bold">{profileData?.username}</h1>
                                 <h4 className="text-gray-500 text-xl ">{profileData?.bio}</h4>
