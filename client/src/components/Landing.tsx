@@ -7,7 +7,7 @@ const Landing = () => {
     const [logoUrl , setLogoUrl] = useState<string>("")
     useEffect(() => {
         if(theme === "light"){
-            setLogoUrl("/logo-color.svg")
+            setLogoUrl("/logo-black.svg")
         } else{
             setLogoUrl("/logo.svg")
         }
