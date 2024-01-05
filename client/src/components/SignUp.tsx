@@ -9,10 +9,13 @@ import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
+import { useSetRecoilState } from "recoil"
+import { userState } from "@/store"
 
 
 const SignUp = () => {
   const navigate = useNavigate()
+  const setUser = useSetRecoilState(userState)
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const isSignUpDisabled = !email || !password;
@@ -27,11 +30,13 @@ const SignUp = () => {
 
       if (res.status === 200) {
         localStorage.setItem("authToken", res.data.token)
+        setUser(res.data.user);
+
         toast({
           title: "Success",
           description: "Redirecting to Profile Page",
         })
-        navigate("/profile")
+        navigate("/create-profile")
       }
 
     } catch (err) {

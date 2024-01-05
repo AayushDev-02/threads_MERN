@@ -5,6 +5,9 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
+import { profileState } from '@/store';
+import { useNavigate } from 'react-router-dom';
 
 interface Link {
     key: string;
@@ -12,6 +15,7 @@ interface Link {
 }
 
 const Profile: React.FC = () => {
+    const navigate = useNavigate()
     const [links, setLinks] = useState<Link[]>([{ key: '', link: '' }]);
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
@@ -19,7 +23,7 @@ const Profile: React.FC = () => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
-
+    const setProfile = useSetRecoilState(profileState)
     const addLink = () => {
         if (links.length < 4) {
             setLinks([...links, { key: '', link: '' }]);
@@ -60,7 +64,8 @@ const Profile: React.FC = () => {
             });
 
             if(res.status === 200){
-                console.log(res)
+                setProfile(res.data.profile)
+                navigate('/threads')
             }
 
         }catch(err) {
