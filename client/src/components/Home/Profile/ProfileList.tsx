@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 import { Profile } from '@/store';
-import { useToast } from '../ui/use-toast';
+import { useToast } from '../../ui/use-toast';
 
 
 

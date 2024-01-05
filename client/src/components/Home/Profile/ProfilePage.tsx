@@ -2,12 +2,12 @@ import { Profile, ThreadsInterface } from "@/store";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ThreadList from "./ThreadList";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Card, CardTitle } from "../ui/card";
-import { Separator } from "../ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import FollowersList from "./FollowersList";
+import ThreadList from "../ThreadList";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Card, CardTitle } from "../../ui/card";
+import { Separator } from "../../ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
+import FollowersList from "../FollowersList";
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -111,7 +111,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <Separator />
-                    <div className=" h-full grid grid-cols-2 gap-5">
+                    <div className=" h-fit grid grid-cols-2 gap-5">
                         <div className="h-full ">
                             <ThreadList threads={userThreads} noThreadTitle="No threads" noThreadDesc="This profile has no threads" />
                         </div>

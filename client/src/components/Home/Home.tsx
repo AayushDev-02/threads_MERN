@@ -1,6 +1,6 @@
 import CreateThread from './CreateThread'
-import ProfileCard from './ProfileCard'
-import ProfileList from './ProfileList'
+import ProfileCard from './Profile/ProfileCard'
+import ProfileList from './Profile/ProfileList'
 import Threads from '../Threads'
 
 const Home = () => {

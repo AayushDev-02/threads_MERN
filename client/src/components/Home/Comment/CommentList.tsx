@@ -1,7 +1,7 @@
 import { Comment } from "@/store"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import LikeButton from "./LikeButton"
-import { Card } from "../ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar"
+import LikeButton from "../LikeButton"
+import { Card } from "../../ui/card"
 
 interface CommentListProps {
     comments: Comment[]

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "../../ui/use-toast";
 import {
     Dialog,
     DialogClose,
@@ -11,11 +11,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Label } from "../ui/label";
+import { Label } from "../../ui/label";
 import { useRecoilValue } from "recoil";
 import { profileIdSelector } from "@/store";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
+import { Button } from "../../ui/button";
+import { Textarea } from "../../ui/textarea";
 import { PlusSquareIcon } from "lucide-react";
 
 interface CommentButtonProps {

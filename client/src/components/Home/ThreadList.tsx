@@ -9,8 +9,8 @@ import { Button } from "../ui/button";
 import LikeButton from "./LikeButton";
 import { Separator } from "../ui/separator";
 import ImageGrid from "./ImageGrid";
-import CommentList from "./CommentList";
-import CommentButton from "./CommentButton";
+import CommentList from "./Comment/CommentList";
+import CommentButton from "./Comment/CommentButton";
 import { useNavigate } from "react-router-dom";
 
 interface ThreadListProps {

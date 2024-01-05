@@ -1,9 +1,9 @@
-import { Separator } from "../ui/separator"
+import { Separator } from "../../ui/separator"
 import { useRecoilValue } from "recoil"
 import { profileState, userState } from "@/store"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import { Button } from "../ui/button"
-import { Card, CardTitle } from "../ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar"
+import { Button } from "../../ui/button"
+import { Card, CardTitle } from "../../ui/card"
 import { useNavigate } from "react-router-dom"
 
 const ProfileCard = () => {
