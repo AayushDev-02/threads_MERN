@@ -8,6 +8,7 @@ import { Card, CardTitle } from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import FollowersList from "../FollowersList";
+import { GithubIcon, Link, LinkedinIcon, StarsIcon } from "lucide-react";
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -25,7 +26,6 @@ const ProfilePage = () => {
                     },
                 });
 
-                console.log(res);
                 setUserThreads(res.data.threads);
             } catch (err) {
                 console.log(err);
@@ -39,7 +39,6 @@ const ProfilePage = () => {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },
                 });
-                console.log(res.data)
 
                 setFollowers(res.data.followers);
             } catch (err) {
@@ -54,7 +53,6 @@ const ProfilePage = () => {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },
                 });
-                console.log(res.data)
                 setFollowing(res.data.following);
             } catch (err) {
                 console.log(err);
@@ -69,9 +67,8 @@ const ProfilePage = () => {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },
                 });
-
+                console.log(res.data.profile)
                 setProfileData(res.data.profile);
-                console.log(res.data);
             } catch (err) {
                 console.error(err);
             }
@@ -93,20 +90,65 @@ const ProfilePage = () => {
                             <AvatarImage src={profileData?.avatar} />
                             <AvatarFallback>{profileData?.username.substring(0, 2)}</AvatarFallback>
                         </Avatar>
-                        <div className="space-y-4 w-1/2">
+                        <div className="space-y-4 w-3/5">
                             <div className="space-y-2">
                                 <h1 className="text-4xl font-bold">{profileData?.username}</h1>
                                 <h4 className="text-gray-500 text-xl ">{profileData?.bio}</h4>
                             </div>
-                            <div className="flex space-x-4">
-                                <Card className="w-full px-5 py-3 flex flex-row items-center justify-between">
-                                    <div className="text-sm font-light">Followers</div>
-                                    <CardTitle>{profileData?.followersCount}</CardTitle>
-                                </Card>
-                                <Card className="w-full px-5 py-3 flex flex-row items-center justify-between">
-                                    <div className="text-sm font-light">Following</div>
-                                    <CardTitle>{profileData?.followingCount}</CardTitle>
-                                </Card>
+                            <div className="space-y-2">
+                                <div className="flex space-x-4">
+                                    <Card className="w-full px-5 py-3 flex flex-row items-center justify-between">
+                                        <div className="text-sm font-light">Followers</div>
+                                        <CardTitle>{profileData?.followersCount}</CardTitle>
+                                    </Card>
+                                    <Card className="w-full px-5 py-3 flex flex-row items-center justify-between">
+                                        <div className="text-sm font-light">Following</div>
+                                        <CardTitle>{profileData?.followingCount}</CardTitle>
+                                    </Card>
+                                </div>
+                                <div className="grid grid-cols-4 gap-2 w-full">
+                                    {Object.entries(profileData.links).map((element, index) => {
+
+                                        if (element[0].toLowerCase() === "github") {
+                                            return (
+                                                <a className="w-full col-span-1" key={index} href={element[1]}>
+                                                    <Card className="flex space-x-2 px-5 py-3 w-full">
+                                                        <GithubIcon fill="#023e8a" color="#023e8a" />
+                                                        <div className="capitalize font-bold" >{element[0]}</div>
+                                                    </Card>
+                                                </a>
+                                            )
+                                        }
+                                        if (element[0].toLowerCase() === "linkedin") {
+                                            return (
+                                                <a className="w-full col-span-1" key={index} href={element[1]}>
+                                                    <Card className="flex space-x-2 px-5 py-3 w-full">
+                                                        <LinkedinIcon fill="#caf0f8" color="#caf0f8" />
+                                                        <div className="capitalize font-bold" >{element[0]}</div>
+                                                    </Card>
+                                                </a>
+                                            )
+                                        }
+                                        if (element[0].toLowerCase() === "portfolio") {
+                                            return (
+                                                <a className="w-full col-span-1" key={index} href={element[1]}>
+                                                    <Card className="flex space-x-2 px-5 py-3 w-full">
+                                                        <StarsIcon fill="#ffba08" color="#ffba08" />
+                                                        <div className="capitalize font-bold" >{element[0]}</div>
+                                                    </Card>
+                                                </a>
+                                            )
+                                        }
+                                        return (
+                                            <a className="w-full col-span-1" key={index} href={element[1]}>
+                                                <Card className="flex space-x-2 px-5 py-3 w-full">
+                                                    <Link fill="#e5e5e5" color="#e5e5e5" />
+                                                    <div className="capitalize font-bold" >{element[0]}</div>
+                                                </Card>
+                                            </a>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -121,8 +163,8 @@ const ProfilePage = () => {
                                     <TabsTrigger className="w-full" value="followers">Followers</TabsTrigger>
                                     <TabsTrigger className="w-full" value="following">Following</TabsTrigger>
                                 </TabsList>
-                                <TabsContent className="w-full h-fit p-5" value="followers"><FollowersList data={followers}/></TabsContent>
-                                <TabsContent className="w-full h-fit p-5" value="following"><FollowersList data={following}/></TabsContent>
+                                <TabsContent className="w-full h-fit p-5" value="followers"><FollowersList data={followers} /></TabsContent>
+                                <TabsContent className="w-full h-fit p-5" value="following"><FollowersList data={following} /></TabsContent>
                             </Tabs>
                         </div>
                     </div>
