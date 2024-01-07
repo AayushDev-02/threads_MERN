@@ -78,3 +78,13 @@ export const userIdSelector = selector<string | null>({
     return user?._id || null;
   },
 });
+
+export const threadUpdate = atom<boolean>({
+  key : "threadsUpdate",
+  default: false
+})
+
+export const profileUpdate = atom<boolean>({
+  key : "profileUpdate",
+  default: false
+})

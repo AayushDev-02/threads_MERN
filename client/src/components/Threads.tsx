@@ -1,8 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { ThreadsInterface } from "@/store"
+import { ThreadsInterface, profileUpdate, threadUpdate } from "@/store"
 import ThreadList from "./Home/ThreadList"
+import { useRecoilValue } from "recoil"
 
 
 const Threads = () => {
@@ -10,6 +11,9 @@ const Threads = () => {
     const [personalThreads, setPersonalThreads] = useState<ThreadsInterface[]>([])
     const [allThreads, setAllThreads] = useState<ThreadsInterface[]>([])
     const [followedThreads, setFollowedThreads] = useState<ThreadsInterface[]>([])
+    const profileUpdates = useRecoilValue(profileUpdate)
+    const threadsUpdate = useRecoilValue(threadUpdate)
+
     useEffect(() => {
         const getCurrentUserThreads = async () => {
           const res = await axios.get("http://localhost:3000/thread/current", {
@@ -22,7 +26,7 @@ const Threads = () => {
           setPersonalThreads(res.data.threads)
         }
         getCurrentUserThreads()
-    }, [])
+    }, [threadsUpdate])
 
     useEffect(() => {
         const getAllThreads = async () => {
@@ -36,7 +40,7 @@ const Threads = () => {
           setAllThreads(res.data.threads)
         }
         getAllThreads();
-    }, [])
+    }, [threadsUpdate])
     useEffect(() => {
         const getFollowingThreads = async () => {
           const res = await axios.get("http://localhost:3000/thread/followed", {
@@ -49,7 +53,7 @@ const Threads = () => {
         setFollowedThreads(res.data.threads)
         }
         getFollowingThreads();
-    }, [])
+    }, [threadsUpdate,profileUpdates ])
 
     return (
         <div className="w-full">

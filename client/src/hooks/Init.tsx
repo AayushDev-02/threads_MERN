@@ -1,11 +1,13 @@
-import { profileState, userState } from '@/store'
+import { profileState, profileUpdate, userState } from '@/store'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+
 
 const Init = () => {
   const setUser = useSetRecoilState(userState)
   const setProfile = useSetRecoilState(profileState)
+  const profileUpdates = useRecoilValue(profileUpdate)
   useEffect(() => {
     const getUserAndProfile = async () => {
       if(localStorage.getItem("authToken")){
@@ -27,7 +29,7 @@ const Init = () => {
       }
     }
     getUserAndProfile()
-  }, [localStorage.getItem("authToken")]) 
+  }, [localStorage.getItem("authToken"), profileUpdates]) 
 
   
 

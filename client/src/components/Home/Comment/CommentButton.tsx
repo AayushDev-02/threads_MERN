@@ -12,8 +12,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Label } from "../../ui/label";
-import { useRecoilValue } from "recoil";
-import { profileIdSelector } from "@/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { profileIdSelector, threadUpdate } from "@/store";
 import { Button } from "../../ui/button";
 import { Textarea } from "../../ui/textarea";
 import { PlusSquareIcon } from "lucide-react";
@@ -26,7 +26,8 @@ const CommentButton:React.FC<CommentButtonProps> = ({threadId}) => {
     const profileId = useRecoilValue(profileIdSelector)
     const [commentContent, setCommentContent] = useState<string>("");
     const { toast } = useToast();
-
+    const [threadsUpdate , setThreadsUpdate] = useRecoilState(threadUpdate)
+    
 
     const handleAddCommnet = async (threadId: string) => {
         console.log(profileId)
@@ -35,13 +36,14 @@ const CommentButton:React.FC<CommentButtonProps> = ({threadId}) => {
             content: commentContent
         };
         try {
-            const res = await axios.post(`http://localhost:3000/thread/${threadId}/comment`, data, {
+            await axios.post(`http://localhost:3000/thread/${threadId}/comment`, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
             });
 
-            console.log(res)
+            setThreadsUpdate(!threadsUpdate)
+
             toast({
                 title: "Success",
                 variant: "default",

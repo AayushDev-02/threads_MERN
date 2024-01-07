@@ -1,9 +1,9 @@
-import { profileIdSelector, userIdSelector } from '@/store'
+import { profileIdSelector, threadUpdate, userIdSelector } from '@/store'
 import axios from 'axios';
 import { HeartIcon } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useToast } from '../ui/use-toast';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 interface LikeButtonProps {
     likeCount: number;
@@ -19,24 +19,27 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likeCount, likesArr, threadId, 
     const [likes, setLikes] = useState<number>(likeCount)
     const profileId = useRecoilValue(profileIdSelector)
     const userId = useRecoilValue(userIdSelector)
-
+    const [threadsUpdate , setThreadsUpdate] = useRecoilState(threadUpdate)
     const handleLikeClick = async () => {
         const data = {
             profileId: profileId,
         };
         try {
-            const res = await axios.post(postUrl, data, {
+            await axios.post(postUrl, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
             });
 
-            console.log(res)
+            // console.log(res)
 
             setLikes(likes + 1);
             if(userId){
                 likesArr.push(userId)
             }
+
+            setThreadsUpdate(!threadsUpdate)
+            
         } catch (err) {
             console.log(err)
             toast({

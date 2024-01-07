@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from '../../ui/button';
-import { Profile } from '@/store';
+import { Profile, profileUpdate } from '@/store';
 import { useToast } from '../../ui/use-toast';
+import { useRecoilState } from 'recoil';
 
 
 
@@ -11,7 +12,7 @@ const ProfileList: React.FC = () => {
     const [profileList, setProfileList] = useState<Profile[]>([]);
     const [followStatus, setFollowStatus] = useState<{ [key: string]: boolean }>({});
     const { toast } = useToast();
-
+    const [profile, setProfileUpdate] = useRecoilState(profileUpdate)
     const handleFollowProfile = async (profileId: string) => {
         const data = {};
         try {
@@ -26,6 +27,8 @@ const ProfileList: React.FC = () => {
                 ...prevStatus,
                 [profileId]: true,
             }));
+
+            setProfileUpdate(!profile)
 
             toast({
                 variant: "default",
@@ -56,6 +59,7 @@ const ProfileList: React.FC = () => {
                 ...prevStatus,
                 [profileId]: false,
             }));
+            setProfileUpdate(!profile)
 
             toast({
                 variant: "default",

@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
-import { useRecoilValue } from "recoil";
-import { Image, profileState } from "@/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { Image, profileState, threadUpdate } from "@/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 import { LinkIcon } from "lucide-react";
@@ -33,6 +33,7 @@ const CreateThread: React.FC = () => {
     setContent(e.target.value);
   };
   const profile = useRecoilValue(profileState);
+  const [threadsUpdate, setThreadsUpdate] = useRecoilState(threadUpdate)
   const handlePost = async () => {
     const data = {
       content: content,
@@ -46,6 +47,7 @@ const CreateThread: React.FC = () => {
         },
       });
       // console.log(res)
+      setThreadsUpdate(!threadsUpdate)
       toast({
         title: "Success",
         description: "Thread Created Successfully",
