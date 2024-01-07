@@ -1,12 +1,24 @@
 import { Profile } from "@/store"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Card } from "../ui/card"
 
 
 interface FollowersListProps {
     data: Profile[]
+    noDataDesc : string;
 }
 
-const FollowersList: React.FC<FollowersListProps> = ({data}) => {
+const FollowersList: React.FC<FollowersListProps> = ({data, noDataDesc}) => {
+
+    if(data.length === 0){
+        return (
+            <Card className="h-[25.7rem] space-y-2 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-extrabold">Not found</h1>
+            <p className="text-lg">{noDataDesc}</p>
+        </Card>
+        )
+    }
+
   return (
     <div className='space-y-4 p-5'>
             {data.map((element, index) => (

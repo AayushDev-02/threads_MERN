@@ -163,8 +163,8 @@ const ProfilePage = () => {
                                     <TabsTrigger className="w-full" value="followers">Followers</TabsTrigger>
                                     <TabsTrigger className="w-full" value="following">Following</TabsTrigger>
                                 </TabsList>
-                                <TabsContent className="w-full h-fit p-5" value="followers"><FollowersList data={followers} /></TabsContent>
-                                <TabsContent className="w-full h-fit p-5" value="following"><FollowersList data={following} /></TabsContent>
+                                <TabsContent className="w-full h-fit p-5" value="followers"><FollowersList data={followers} noDataDesc="This account do not follow anyone." /></TabsContent>
+                                <TabsContent className="w-full h-fit p-5" value="following"><FollowersList noDataDesc="No one is following this account" data={following} /></TabsContent>
                             </Tabs>
                         </div>
                     </div>
