@@ -9,6 +9,7 @@ import { Separator } from "../../ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import FollowersList from "../FollowersList";
 import { GithubIcon, Link, LinkedinIcon, StarsIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -148,6 +149,9 @@ const ProfilePage = () => {
                                             </a>
                                         )
                                     })}
+                                </div>
+                                <div>
+                                    <Button>Follow</Button>
                                 </div>
                             </div>
                         </div>
