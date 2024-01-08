@@ -1,7 +1,7 @@
 import { HomeIcon, SearchIcon, SettingsIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { profileState, userState } from '@/store';
 import { useEffect, useState } from 'react';
 import { useTheme } from './theme-provider';
@@ -13,6 +13,7 @@ const Sidebar = () => {
     const setProfile = useSetRecoilState(profileState);
     const {theme} = useTheme()
     const [logoUrl , setLogoUrl] = useState<string>("")
+    const profile = useRecoilValue(profileState)
 
     useEffect(() => {
         if(theme === "light"){
@@ -28,6 +29,13 @@ const Sidebar = () => {
         setProfile(null);
         navigate('/auth/login');
     };
+
+    useEffect(() => {
+        if(!localStorage.getItem("authToken") && !profile){
+            navigate("/auth/login")
+        }
+        
+    })
 
     return (
         <div className='w-full h-full flex flex-col justify-between items-start border-r border-border px-5 py-10 text-black dark:text-white'>

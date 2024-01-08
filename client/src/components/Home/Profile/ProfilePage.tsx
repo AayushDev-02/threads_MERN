@@ -151,7 +151,7 @@ const ProfilePage = () => {
                                     })}
                                 </div>
                                 <div>
-                                    <Button>Follow</Button>
+                                    <Button variant={"outline"} className="w-full">Follow</Button>
                                 </div>
                             </div>
                         </div>
