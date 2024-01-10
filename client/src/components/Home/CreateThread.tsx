@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import ImageGrid from "./ImageGrid";
+import { useNavigate } from "react-router-dom";
 
 
 const CreateThread: React.FC = () => {
@@ -32,6 +33,7 @@ const CreateThread: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
+  const navigate = useNavigate()
   const profile = useRecoilValue(profileState);
   const [threadsUpdate, setThreadsUpdate] = useRecoilState(threadUpdate)
   const handlePost = async () => {
@@ -86,7 +88,7 @@ const CreateThread: React.FC = () => {
 
                 <AvatarFallback>{profile?.username.substring(0, 2)}</AvatarFallback>
               </Avatar>
-              <h2 className="w-fit">{profile?.username}</h2>
+              <h2 onClick={() => navigate(`/profile/${profile?._id}`)} className="w-fit cursor-pointer hover:underline">{profile?.username}</h2>
               <Dialog>
                 <DialogTrigger><LinkIcon color="#9ca3af" width={20} height={20} /></DialogTrigger>
 
