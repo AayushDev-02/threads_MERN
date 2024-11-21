@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import { profileState, userState } from "@/store";
+import axiosInstance from "@/utils/axiosInstance";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Login = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", data);
+      const res = await axiosInstance.post("/auth/login", data);
 
       if (res.status === 200) {
         localStorage.setItem("authToken", res.data.token);
@@ -38,7 +39,7 @@ const Login = () => {
 
         //check if profile is present ?
         
-          const res2 = await axios.get("http://localhost:3000/profile", {
+          const res2 = await axiosInstance.get("/profile", {
             headers: {
               Authorization: `Bearer ${res.data.token}`,
             },

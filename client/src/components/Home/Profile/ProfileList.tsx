@@ -1,11 +1,10 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from '../../ui/button';
 import { Profile, profileUpdate } from '@/store';
 import { useToast } from '../../ui/use-toast';
 import { useRecoilState } from 'recoil';
-
+import axiosInstance from '@/utils/axiosInstance';
 
 
 const ProfileList: React.FC = () => {
@@ -16,7 +15,7 @@ const ProfileList: React.FC = () => {
     const handleFollowProfile = async (profileId: string) => {
         const data = {};
         try {
-            await axios.post(`http://localhost:3000/user/follow/${profileId}`, data, {
+            await axiosInstance.post(`/user/follow/${profileId}`, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
@@ -48,7 +47,7 @@ const ProfileList: React.FC = () => {
     const handleUnFollowProfile = async (profileId: string) => {
         const data = {};
         try {
-            await axios.post(`http://localhost:3000/user/unfollow/${profileId}`, data, {
+            await axiosInstance.post(`/user/unfollow/${profileId}`, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
@@ -87,7 +86,7 @@ const ProfileList: React.FC = () => {
     useEffect(() => {
         const getAllProfiles = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/profile/get/not-followed", {
+                const res = await axiosInstance.get("/profile/get/not-followed", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`
                     }

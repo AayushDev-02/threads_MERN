@@ -8,10 +8,10 @@ import { Label } from "@radix-ui/react-label"
 import { ChangeEvent, useEffect, useState } from "react"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
-import axios from "axios"
 import { useToast } from "../ui/use-toast"
 import { Separator } from "../ui/separator"
 import { PlusCircle, X } from "lucide-react"
+import axiosInstance from '@/utils/axiosInstance';
 
 
 interface Link {
@@ -92,7 +92,7 @@ const ProfileForm = () => {
         }
         try {
 
-            const res = await axios.patch("http://localhost:3000/profile/", data, {
+            const res = await axiosInstance.patch("/profile/", data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`
                 }

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useToast } from "../../ui/use-toast";
 import {
@@ -17,6 +16,7 @@ import { profileIdSelector, threadUpdate } from "@/store";
 import { Button } from "../../ui/button";
 import { Textarea } from "../../ui/textarea";
 import { PlusSquareIcon } from "lucide-react";
+import axiosInstance from '@/utils/axiosInstance';
 
 interface CommentButtonProps {
     threadId: string;
@@ -36,7 +36,7 @@ const CommentButton:React.FC<CommentButtonProps> = ({threadId}) => {
             content: commentContent
         };
         try {
-            await axios.post(`http://localhost:3000/thread/${threadId}/comment`, data, {
+            await axiosInstance.post(`/thread/${threadId}/comment`, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },

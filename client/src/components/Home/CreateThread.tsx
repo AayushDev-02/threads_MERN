@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Separator } from "@/components/ui/separator";
-import axios from "axios";
 import { useToast } from "../ui/use-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Image, profileState, threadUpdate } from "@/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-
 import { LinkIcon } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
+
 import {
   Dialog,
   DialogClose,
@@ -22,6 +21,7 @@ import {
 } from "@/components/ui/dialog"
 import ImageGrid from "./ImageGrid";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "@/utils/axiosInstance";
 
 
 const CreateThread: React.FC = () => {
@@ -43,7 +43,7 @@ const CreateThread: React.FC = () => {
       images: images,
     };
     try {
-      await axios.post("http://localhost:3000/thread/create", data, {
+      await axiosInstance.post("/thread/create", data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },

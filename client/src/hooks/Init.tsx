@@ -1,7 +1,7 @@
 import { profileState, profileUpdate, userState } from '@/store'
-import axios from 'axios'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import axiosInstance from '@/utils/axiosInstance';
 
 
 const Init = () => {
@@ -12,14 +12,14 @@ const Init = () => {
     const getUserAndProfile = async () => {
       if(localStorage.getItem("authToken")){
 
-        const res = await axios.get("http://localhost:3000/user/me", {
+        const res = await axiosInstance.get("/user/me", {
           headers: {
             Authorization : `Bearer ${localStorage.getItem("authToken")}`
           }
         })
         setUser(res.data.data)
 
-        const res2 = await axios.get("http://localhost:3000/profile", {
+        const res2 = await axiosInstance.get("/profile", {
           headers: {
             Authorization : `Bearer ${localStorage.getItem("authToken")}`
           }

@@ -4,10 +4,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { profileState } from '@/store';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '@/utils/axiosInstance';
+
 
 interface Link {
     key: string;
@@ -57,7 +58,7 @@ const Profile: React.FC = () => {
         }
         try{
 
-            const res = await axios.post("http://localhost:3000/profile", data, {
+            const res = await axiosInstance.post("/profile", data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

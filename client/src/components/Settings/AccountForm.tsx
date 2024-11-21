@@ -4,9 +4,8 @@ import { Input } from '../ui/input'
 import { useRecoilValue } from 'recoil'
 import { userState } from '@/store'
 import { Button } from '../ui/button'
-import axios from 'axios'
 import { useToast } from '../ui/use-toast'
-
+import axiosInstance from '@/utils/axiosInstance';
 const AccountForm = () => {
     const user = useRecoilValue(userState)
     const { toast } = useToast();
@@ -21,7 +20,7 @@ const AccountForm = () => {
         }
         try{
 
-            const res = await axios.patch("http://localhost:3000/user/update/password", data, {
+            const res = await axiosInstance.patch("/user/update/password", data, {
                 headers :{
                     Authorization : `Bearer ${localStorage.getItem("authToken")}`
                 }

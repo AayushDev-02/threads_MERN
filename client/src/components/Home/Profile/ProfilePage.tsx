@@ -1,5 +1,4 @@
 import { Profile, ThreadsInterface } from "@/store";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ThreadList from "../ThreadList";
@@ -10,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import FollowersList from "../FollowersList";
 import { GithubIcon, Link, LinkedinIcon, StarsIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import axiosInstance from '@/utils/axiosInstance';
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -21,7 +21,7 @@ const ProfilePage = () => {
     useEffect(() => {
         const getProfileThreads = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/thread/profile/${id}`, {
+                const res = await axiosInstance.get(`/thread/profile/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },
@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
         const getProfileFollowers = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/user/followers/${id}`, {
+                const res = await axiosInstance.get(`/user/followers/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },
@@ -49,7 +49,7 @@ const ProfilePage = () => {
 
         const getProfileFollowing = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/user/following/${id}`, {
+                const res = await axiosInstance.get(`/user/following/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },
@@ -63,7 +63,7 @@ const ProfilePage = () => {
         const getProfile = async () => {
             try {
                 // Fetch the profile data from the API
-                const res = await axios.get(`http://localhost:3000/profile/${id}`, {
+                const res = await axiosInstance.get(`/profile/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                     },

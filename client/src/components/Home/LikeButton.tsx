@@ -1,10 +1,9 @@
 import { profileIdSelector, threadUpdate, userIdSelector } from '@/store'
-import axios from 'axios';
 import { HeartIcon } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useToast } from '../ui/use-toast';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
+import axiosInstance from '@/utils/axiosInstance';
 interface LikeButtonProps {
     likeCount: number;
     likesArr: string[];
@@ -15,7 +14,7 @@ interface LikeButtonProps {
 const LikeButton: React.FC<LikeButtonProps> = ({ likeCount, likesArr, threadId, type="Thread", commentId }) => {
 
     const { toast } = useToast();
-    const [postUrl, setPostUrl] = useState<string>(`http://localhost:3000/thread/${threadId}/like`)
+    const [postUrl, setPostUrl] = useState<string>(`/thread/${threadId}/like`)
     const [likes, setLikes] = useState<number>(likeCount)
     const profileId = useRecoilValue(profileIdSelector)
     const userId = useRecoilValue(userIdSelector)
@@ -25,7 +24,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likeCount, likesArr, threadId, 
             profileId: profileId,
         };
         try {
-            await axios.post(postUrl, data, {
+            await axiosInstance.post(postUrl, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
@@ -52,10 +51,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likeCount, likesArr, threadId, 
 
     useEffect(() => {
         if(type === "Comment") {
-            setPostUrl(`http://localhost:3000/thread/${threadId}/comment/${commentId}/like`)
+            setPostUrl(`/thread/${threadId}/comment/${commentId}/like`)
         }
         else{
-            setPostUrl(`http://localhost:3000/thread/${threadId}/like`)
+            setPostUrl(`/thread/${threadId}/like`)
         }
     },[type, commentId, threadId])
     return (

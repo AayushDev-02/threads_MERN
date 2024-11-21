@@ -1,10 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { ThreadsInterface, profileUpdate, threadUpdate } from "@/store"
 import ThreadList from "./Home/ThreadList"
 import { useRecoilValue } from "recoil"
-
+import axiosInstance from "@/utils/axiosInstance"
 
 const Threads = () => {
 
@@ -16,7 +15,7 @@ const Threads = () => {
 
     useEffect(() => {
         const getCurrentUserThreads = async () => {
-          const res = await axios.get("http://localhost:3000/thread/current", {
+          const res = await axiosInstance.get("/thread/current", {
             headers: {
               Authorization : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -30,7 +29,7 @@ const Threads = () => {
 
     useEffect(() => {
         const getAllThreads = async () => {
-          const res = await axios.get("http://localhost:3000/thread/all", {
+          const res = await axiosInstance.get("/thread/all", {
             headers: {
               Authorization : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -43,7 +42,7 @@ const Threads = () => {
     }, [threadsUpdate])
     useEffect(() => {
         const getFollowingThreads = async () => {
-          const res = await axios.get("http://localhost:3000/thread/followed", {
+          const res = await axiosInstance.get("/thread/followed", {
             headers: {
               Authorization : `Bearer ${localStorage.getItem("authToken")}`
             }

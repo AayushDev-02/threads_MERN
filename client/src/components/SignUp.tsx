@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
 import { useSetRecoilState } from "recoil"
 import { userState } from "@/store"
+import axiosInstance from "@/utils/axiosInstance"
 
 
 const SignUp = () => {
@@ -26,7 +27,7 @@ const SignUp = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/auth/signup", data)
+      const res = await axiosInstance.post("/auth/signup", data)
 
       if (res.status === 200) {
         localStorage.setItem("authToken", res.data.token)

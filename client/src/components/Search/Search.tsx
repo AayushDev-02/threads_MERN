@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Input } from "../ui/input";
-import axios from "axios";
 import { Profile } from "@/store";
 import { Card } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from '@/utils/axiosInstance';
 
 const Search = () => {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Search = () => {
     const fetchAllProfiles = async () => {
       try {
         // Fetch all profiles
-        const res = await axios.get("http://localhost:3000/profile/current/all", {
+        const res = await axiosInstance.get("/profile/current/all", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
