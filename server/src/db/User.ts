@@ -1,6 +1,13 @@
 import mongoose from "mongoose"
 
-const userSchema = new mongoose.Schema({
+
+interface IUser extends Document {
+    email: string;
+    password: string;
+}
+
+
+const userSchema = new mongoose.Schema<IUser>({
     
     email: String,
     password: String,
