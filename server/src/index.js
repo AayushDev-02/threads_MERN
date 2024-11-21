@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var mongoose_1 = require("mongoose");
+var cors_1 = require("cors");
+var dotenv_1 = require("dotenv");
+var auth_1 = require("./routes/auth");
+var profile_1 = require("./routes/profile");
+var user_1 = require("./routes/user");
+var thread_1 = require("./routes/thread");
+dotenv_1.default.config();
+var port = process.env.PORT;
+var app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use((0, cors_1.default)());
+app.use("/auth", auth_1.default);
+app.use("/profile", profile_1.default);
+app.use("/user", user_1.default);
+app.use("/thread", thread_1.default);
+mongoose_1.default.connect(process.env.MONGO_URI || "", { dbName: "threads" });
+app.listen(port, function () {
+    console.log("Server running on port : ", port);
+});
