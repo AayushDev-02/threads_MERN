@@ -60,6 +60,7 @@ router.post("/signup",  async (req,res) => {
 })
 
 router.post("/login" , async(req, res) => {
+    console.log("Login initiated.")
     const body = userSignInProps.safeParse(req.body);    
     if(!body.success){
         return res.status(403).json({msg: body.error})

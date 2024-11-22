@@ -7,7 +7,7 @@ const apiUrl: string = import.meta.env.VITE_API_URL;
 
 const axiosInstance = axios.create({
   baseURL: apiUrl,  // The base URL will be pulled from the environment variable
-  timeout: 10000,    // Optional: Set a timeout for requests
+  timeout: 50000,    // Optional: Set a timeout for requests
 });
 
 export default axiosInstance;
